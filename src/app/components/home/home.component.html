@@ -1,0 +1,20 @@
+<h1 class="title">Home page</h1>
+<app-maps></app-maps>
+<li *ngFor="let chat of data">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ chat.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ chat.short_description }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  
+    <p>{{ chat.description }}</p>
+  
+    <mat-action-row>
+      <button mat-button (click)="goToPage('chat', chat.id)">Chat</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</li>

@@ -1,0 +1,10 @@
+
+<h3 style="padding-right: 20px;">{{chatData.chatName}} | <p style="    display: inline-flex;
+    ">ID: {{chatData.chatId}}</p>
+</h3>
+<h6>{{chatData.description}}</h6>
+<br>
+<h6 *ngFor="let message of (messages$ | async); let i=index">
+    <p>{{i}}:{{ message }} <button (click)="deleteMessage(message.messageId)"></button></p>
+</h6>
+<input #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');">

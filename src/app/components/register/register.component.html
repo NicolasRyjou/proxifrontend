@@ -1,0 +1,14 @@
+<div class="container" style="max-width: 550px">
+   <h2 class="text-center mb-5">Register</h2> 
+   <form [formGroup]="registerForm">
+      <label for="firstName">First Name</label>
+      <input type="text" id="txtFName" formControlName="firstName"/>
+      <label for="lastName">Last Name</label>
+      <input type="text" id="txtSName" formControlName="lastName"/>
+      <label for="email">Email</label>
+      <input type="text" id="txtEmail" formControlName="email"/>
+      <label for="bio">About Me</label>
+      <input type="text" id="txtBio" formControlName="bio"/>
+      <button type="submit" (click)="registerUser();">Register</button>
+   </form>
+ </div>

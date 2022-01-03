@@ -1,0 +1,33 @@
+<div class="container" style="max-width: 550px">
+  <h2 class="text-center mb-5">Angular Login with Google</h2>
+
+  <div>
+    <div>
+      <button type="button" (click)="signInWithGoogle()" class="btn btn-danger">Login with Google</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" class="form-control" [value]="user.firstName" id="firstname" readonly>
+    </div>
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" [value]="user.lastName" id="lastname" readonly>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" [value]="user.email" id="email" readonly>
+    </div>
+    <div class="form-group">
+      <label>About Me</label>
+      <input type="text" class="form-control" [value]="user.bio" id="lastname" readonly>
+    </div>
+    <div class="form-group">
+      <label>Birthday</label>
+      <input type="date" class="form-control" [value]="user.birthday" id="lastname" readonly>
+    </div>
+    <button type="button" (click)="signOut()" class="btn btn-primary">Log Out</button>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+li{
+  list-style-type:none;
+}
+
+h1.title{
+  color: #ffffff; font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px;
+}
+
+.main_body{
+  background-color: #ffffff;
+}
+
+.navbar-other{
+  position: sticky;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.spacer{
+  margin: 75px;
+}
+
+.navbar.nav-spacer{
+  padding-left: 10px;
+}
+
+.logo-placeholder{
+  width:auto;
+  height:30px;
+  padding-left: 30px;
+}
+
+img {
+  width:100%;
+  height:100%;
+}

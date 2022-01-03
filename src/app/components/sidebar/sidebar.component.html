@@ -1,0 +1,5 @@
+<div class="card" style="width: 18rem;">
+    <div class="list-group list-group-flush" *ngFor="let chat of chatData | async; let i = index;">
+      <div class="list-group-item" (click)="goToPage('chat', chat.id-1)">{{chat.name}}<div *ngIf="i > chat.messages.length - 2"></div></div>
+    </div>
+  </div>

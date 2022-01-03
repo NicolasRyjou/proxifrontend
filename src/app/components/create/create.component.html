@@ -1,0 +1,26 @@
+<div class="container">
+    <hr>
+    <div class="container">
+        <h1>Create a new chat!</h1>
+        <form #heroForm="ngForm">
+          <div class="form-group">
+            <label for="name">Chat Name</label>
+            <input type="text" class="form-control" id="chatName"
+                   required
+                   [(ngModel)]="modelChat.chatName" name="chatName">
+            <input type="text" class="form-control" id="chatId"
+                   required
+                   [(ngModel)]="modelChat.chatId" name="chatId">       
+          </div>
+  
+          <div class="form-group">
+            <label for="chatDescription">Description: Describe your chat, what it's about and other.</label>
+            <input type="text"  class="form-control" id="description"
+                   [(ngModel)]="modelChat.description" name="description">
+          </div>        
+          <button type="submit" class="btn btn-success" (click)="onCreateChatSubmit()">Create!</button>
+        </form>
+    </div>
+  
+  </div>
+  
