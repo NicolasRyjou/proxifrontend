@@ -13,7 +13,6 @@ export class LocalstorageService {
 
   public setLocalStorageUserID(userId: number){
     localStorage.setItem('userId', String(userId));
-    console.log("Saved user Id "+userId+" to localstorage;")
   }
 
   public resetLocalStorage(){

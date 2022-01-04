@@ -26,7 +26,7 @@ export class BackendService {
   }
   
   getMessagesFromBefore(chatId: number, messageNumber: number){
-    return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber+"/").subscribe(
+    return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber).subscribe(
       (response) => console.log(response),
     )
   }

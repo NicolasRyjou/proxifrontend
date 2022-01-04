@@ -31,8 +31,8 @@ export class ChatComponent implements OnInit{
     }
     
     ngOnInit(): void {
-        console.log(this.localstorageservice.getLocalStorageUserId)
-        let tempData = JSON.stringify({"user_id": this.localstorageservice.getLocalStorageUserId, "chat_id":this.chatData.chatId});
+        this.userData.userId = Number(this.localstorageservice.getLocalStorageUserId())
+        let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
         let lastRecentMessages = this.backend.getMessagesFromBefore(this.chatData.chatId, 50)

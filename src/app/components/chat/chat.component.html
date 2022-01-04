@@ -5,6 +5,6 @@
 <h6>{{chatData.description}}</h6>
 <br>
 <h6 *ngFor="let message of (messages$ | async); let i=index">
-    <p>{{i}}:{{ message }} <button (click)="deleteMessage(message.messageId)"></button></p>
+    <p>{{i}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></p>
 </h6>
 <input #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');">
