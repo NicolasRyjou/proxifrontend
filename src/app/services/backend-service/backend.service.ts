@@ -13,18 +13,24 @@ export class BackendService {
 
   backendUrl = GlobalVariable.BASE_API_URL;
 
-  post(urlAddress: string, data) {
+  post(urlAddress: string, data): any {
     return this.http.post(this.backendUrl + urlAddress, JSON.stringify(data)).subscribe(
       (response) => console.log(response)
     );
   }
 
-  getChatData(chatId: number) {
+  getChatData(chatId: number): any {
     return this.http.get(this.backendUrl+"/chats/"+chatId).subscribe(
       (response) => console.log(response),
     )
   }
   
+  getRecentChatId(userId: number){
+    return this.http.get(this.backendUrl+"/recent/"+userId).subscribe(
+      (response) => console.log(response),
+    )
+  }
+
   getMessagesFromBefore(chatId: number, messageNumber: number){
     return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber).subscribe(
       (response) => console.log(response),
