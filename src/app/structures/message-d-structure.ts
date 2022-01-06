@@ -1,5 +1,8 @@
 export interface MessageClass{
     messageId: number,
     senderId: number,
-    content: string
+    chatId: number,
+    content: string,
+    sendOn: string,
+    imageB64: string
 }

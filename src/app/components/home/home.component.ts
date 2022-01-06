@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit{
     ) { }
 
     ngOnInit(){
-        console.log("I NEED TO GET LOCAL CHATS")
+        console.log(this.localstorage.getLocalStorageUserId())
+        this.httpConnService.getChatData(1)
     }
 
     eraseCookiesAndLogout(){

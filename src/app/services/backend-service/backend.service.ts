@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalVariable } from 'src/global';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
-
+import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class BackendService {
@@ -12,11 +12,14 @@ export class BackendService {
   ) { }
 
   backendUrl = GlobalVariable.BASE_API_URL;
-
-  post(urlAddress: string, data): any {
-    return this.http.post(this.backendUrl + urlAddress, JSON.stringify(data)).subscribe(
-      (response) => console.log(response)
+  
+  post(urlAddress: string, data): Observable<string>{
+    var subject = new Subject<string>();
+    this.http.post(this.backendUrl + urlAddress, JSON.stringify(data))
+    .subscribe(
+      (response: any) => {console.log(response);subject = response;}
     );
+    return subject.asObservable();
   }
 
   getChatData(chatId: number): any {
@@ -31,7 +34,7 @@ export class BackendService {
     )
   }
 
-  getMessagesFromBefore(chatId: number, messageNumber: number){
+  getMessagesFromBefore(chatId: number, messageNumber: number): any{
     return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber).subscribe(
       (response) => console.log(response),
     )

@@ -35,7 +35,7 @@ export class ChatComponent implements OnInit{
         let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
-        let lastRecentMessages = this.backend.getMessagesFromBefore(this.chatData.chatId, 50)
+        let lastRecentMessages = JSON.parse(this.backend.getMessagesFromBefore(this.chatData.chatId, 50))
         for(let i:number = 0; i>50; i++){
             this.messagesOld.push(lastRecentMessages[i])
         }

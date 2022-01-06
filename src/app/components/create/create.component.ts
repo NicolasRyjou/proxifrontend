@@ -4,6 +4,7 @@ import { BackendService } from 'src/app/services/backend-service/backend.service
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { Router } from '@angular/router';
 import { GlobalVariable } from 'src/global';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-create-chat',
@@ -26,6 +27,7 @@ export class CreateChatComponent implements OnInit {
   cardImageBase64: string;
 
   ngOnInit() {
+    this.backend.getVar('chatNumber')
     if(typeof(Number(this.localstorageservice.getLocalStorageUserId())) === 'number'){
       this.userId = Number(this.localstorageservice.getLocalStorageUserId());
     } else {
@@ -41,8 +43,8 @@ export class CreateChatComponent implements OnInit {
   }
 
   onCreateChatSubmit() { 
-    console.log(JSON.stringify(this.modelChat.coordinates))
     this.backend.post('/chats/12345', this.modelChat);
+    delay(1000)
     let chatNumberBefore: number = Number(this.backend.getVar('chatNumber'));
     let redirectUrlChatId = chatNumberBefore+1;
     this.backend.postVar("chatNumber", redirectUrlChatId)
