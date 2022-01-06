@@ -15,7 +15,7 @@ export class BackendService {
   
   post(urlAddress: string, data): Observable<string>{
     var subject = new Subject<string>();
-    this.http.post(this.backendUrl + urlAddress, JSON.stringify(data))
+    this.http.post<any>(this.backendUrl + urlAddress, JSON.stringify(data))
     .subscribe(
       (response: any) => {console.log(response);subject = response;}
     );

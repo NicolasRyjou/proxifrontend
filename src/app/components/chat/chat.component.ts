@@ -14,7 +14,8 @@ export class ChatComponent implements OnInit{
     userData = new UserClass(1, "", "", "");
     chatData = new ChatClass(1, 1, "", null, "", "");
     messages$ : Observable<MessageClass[]>;
-    messagesOld: MessageClass[]
+    lastRecentMessages: MessageClass[];
+    listLastRecentMessages:any = [];
 
     constructor(
         private activatedRoute:ActivatedRoute,
@@ -35,11 +36,15 @@ export class ChatComponent implements OnInit{
         let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
-        let lastRecentMessages = JSON.parse(this.backend.getMessagesFromBefore(this.chatData.chatId, 50))
-        for(let i:number = 0; i>50; i++){
-            this.messagesOld.push(lastRecentMessages[i])
+        //let lastRecentMessages = JSON.parse(this.backend.getMessagesFromBefore(this.chatData.chatId, 49))
+        this.lastRecentMessages = this.backend.getMessagesFromBefore(this.chatData.chatId, 50)
+        console.log(typeof(this.lastRecentMessages))
+        for(let i=0;i<this.lastRecentMessages.length;i++){
+            console.log(this.lastRecentMessages[i])
+            this.listLastRecentMessages.push(this.lastRecentMessages[i])
         }
         this.socketService.getNewMessage()
+
     }
 
     ngOnDestroy() {
