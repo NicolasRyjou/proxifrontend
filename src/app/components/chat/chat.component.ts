@@ -34,15 +34,18 @@ export class ChatComponent implements OnInit{
     ngOnInit(): void {
         this.userData.userId = Number(this.localstorageservice.getLocalStorageUserId())
         let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
+        this.backend.getChatData(this.chatData.chatId).then(data => {
+            this.bindDataFromRequest(data)
+        })
+        console.log(this.chatData)
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
-        //let lastRecentMessages = JSON.parse(this.backend.getMessagesFromBefore(this.chatData.chatId, 49))
-        this.lastRecentMessages = this.backend.getMessagesFromBefore(this.chatData.chatId, 50)
-        console.log(typeof(this.lastRecentMessages))
-        for(let i=0;i<this.lastRecentMessages.length;i++){
-            console.log(this.lastRecentMessages[i])
-            this.listLastRecentMessages.push(this.lastRecentMessages[i])
-        }
+        this.backend.getMessagesFromBefore(this.chatData.chatId, 50).then(data => {
+            console.log(data)
+            for(let i=0;i<data.length;i++){
+                    this.listLastRecentMessages.push(data[i])
+                }
+        });
         this.socketService.getNewMessage()
 
     }
@@ -60,8 +63,8 @@ export class ChatComponent implements OnInit{
         this.chatData.creatorId = Number(dataForChat.creator_id);
         this.chatData.chatName = String(dataForChat.name);
         this.chatData.coordinates = coordinates;
-        this.chatData.description = String(dataForChat.chat_id);
-        this.chatData.imageBase64 = this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.image.base64string); dataForChat.image;
+        this.chatData.description = String(dataForChat.description);
+        this.chatData.imageBase64 = this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string); dataForChat.image;
       }
 
     loadChat(chat_id: number){
@@ -80,5 +83,4 @@ export class ChatComponent implements OnInit{
     deleteMessage(message_id: number){
         this.socketService.deleteMessage(message_id);
     }
-
 }

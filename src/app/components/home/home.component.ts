@@ -6,6 +6,8 @@ import { BackendService } from '../../services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { GlobalVariable } from 'src/global';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
+import { ChatClass } from 'src/app/structures/chat-d-struc';
+import { LocationService } from 'src/app/services/location-service/location.service';
 
 
 @Component({
@@ -16,17 +18,31 @@ import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 })
 export class HomeComponent implements OnInit{
     newUrl;
-    data;
+    dataChats: ChatClass[];
+    coords: any;
+    radius = 0.5; //meters
 
+    maxRadius = 5000;
+    minRadius = 100;
+    radiusSliderSteps = 25;
+ 
     constructor(
         private router: Router,
-        private httpConnService: BackendService,
-        public localstorage: LocalstorageService
+        private backend: BackendService,
+        public localstorage: LocalstorageService,
+        private locationservice: LocationService
     ) { }
 
     ngOnInit(){
-        console.log(this.localstorage.getLocalStorageUserId())
-        this.httpConnService.getChatData(1)
+        this.updateNearMe();
+    }
+
+    updateNearMe(){
+        this.locationservice.getPosition().then(pos => {
+            this.backend.getChatNearMe(pos, this.radius).then(listOfChatsNearMe => {
+                console.log(listOfChatsNearMe)
+            })
+        })
     }
 
     eraseCookiesAndLogout(){
@@ -34,6 +50,10 @@ export class HomeComponent implements OnInit{
         console.log("Logging out. Erasing localstorage. redirecting to login page")
         this.goToPage('login', '')
       }
+
+    radiusSliderFunc(event: any){
+        this.radius = event.value;
+    }
 
     goToPage(pageName:string, name: any){
         console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+name)

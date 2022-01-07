@@ -1,20 +1,25 @@
 <h1 class="title">Home page</h1>
 <app-maps></app-maps>
-<li *ngFor="let chat of data">
+<mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
+<div>
+  {{ radius }} meters radius.
+</div>
+<button (click)="updateNearMe();">Update</button>
+<li *ngFor="let chat of dataChats">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ chat.name }}
+        {{ chat.chatName }}
       </mat-panel-title>
       <mat-panel-description>
-        {{ chat.short_description }}
+        {{ chat.description }}
       </mat-panel-description>
     </mat-expansion-panel-header>
   
     <p>{{ chat.description }}</p>
   
     <mat-action-row>
-      <button mat-button (click)="goToPage('chat', chat.id)">Chat</button>
+      <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
     </mat-action-row>
   </mat-expansion-panel>
 </li>

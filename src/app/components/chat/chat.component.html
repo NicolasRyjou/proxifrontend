@@ -1,13 +1,10 @@
-
-<h3 style="padding-right: 20px;">{{chatData.chatName}} | <p style="    display: inline-flex;
-    ">ID: {{chatData.chatId}}</p>
-</h3>
+<h1 class="chat-title">{{ chatData.chatName }}</h1>
 <h6>{{chatData.description}}</h6>
 <br>
-<h6 *ngFor="let message of lastRecentMessages; let i=index">
-    <p>{{i}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></p>
+<h6 *ngFor="let message of listLastRecentMessages; let i=index">
+    <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 <h6 *ngFor="let message of (messages$ | async); let i=index">
-    <p>{{i}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></p>
+    <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 <input #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');">

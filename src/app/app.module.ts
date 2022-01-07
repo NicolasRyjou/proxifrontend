@@ -30,6 +30,10 @@ import { VerifyCodeComponent } from './components/verify-code';
 import { CreateChatComponent } from './components/create';
 import { ChatSettingsComponent } from './components/chat-settings/chat-settings.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -42,10 +46,16 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSliderModule,
     HttpClientModule,
     GoogleMapsModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],    
   providers: [
     {
