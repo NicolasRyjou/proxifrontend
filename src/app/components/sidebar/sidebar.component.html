@@ -1,5 +1,15 @@
-<div class="card" style="width: 18rem;">
-    <div class="list-group list-group-flush" *ngFor="let chat of chatData; let i = index;">
-      <div class="list-group-item" (click)="goToPage('chat', chat.chatId)">{{chat.chatName}}</div>
-    </div>
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+  <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+    <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+    <span class="fs-5 fw-semibold">Your Chats</span>
+  </a>
+  <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let chat of chatData">
+    <a class="{{ unselectedChat }}" (click)="goToPage('/chat/', chat.chatId)">
+      <div class="d-flex w-100 align-items-center justify-content-between">
+        <strong class="mb-1">{{ chat.chatName }}</strong>
+        <small class="text-muted">{{ chat.chatId }}</small>
+      </div>
+      <div class="col-10 mb-1 small">{{ chat.description }}</div>
+    </a>
   </div>
+</div>

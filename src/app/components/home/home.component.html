@@ -1,5 +1,6 @@
 <h1 class="title">Home page</h1>
-<app-maps></app-maps>
+<app-maps>
+</app-maps>
 <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
 <div>
   {{ radius }} meters radius.
@@ -16,7 +17,7 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
   
-    <p>{{ chat.description }}</p>
+    <p>{{ chat.description }}{{ chat | json }}</p>
   
     <mat-action-row>
       <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>

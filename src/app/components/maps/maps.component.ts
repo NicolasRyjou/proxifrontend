@@ -10,13 +10,13 @@ export class MapsComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
 
-  zoom = 12
-  center: google.maps.LatLngLiteral
+  zoom = 12;
+  center: google.maps.LatLngLiteral;
   options: google.maps.MapOptions = {
     zoomControl: false,
     scrollwheel: false,
     disableDoubleClickZoom: true,
-    mapTypeId: 'hybrid',
+    mapTypeId: 'roadmap',
     maxZoom: 15,
     minZoom: 8,
   }

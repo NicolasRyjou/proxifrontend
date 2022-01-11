@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, setTestabilityGetter } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { UserClass } from 'src/app/structures/user-d-struc';
 import { GlobalVariable } from 'src/global';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { formatDate } from '@angular/common';
+import { TitleService } from 'src/app/services/title-service/title.service';
 
 export interface ResponceUserId{
     "user_id": number,
@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit{
         private localstorage: LocalstorageService,
         private backend: BackendService,
         public router: Router,
-        private formBuilder:FormBuilder
+        private formBuilder:FormBuilder,
+        private title: TitleService
     ) {
         this.firstName = new FormControl("John", [Validators.required]);
         this.lastName = new FormControl("Steve", [Validators.required]);
@@ -48,10 +49,19 @@ export class RegisterComponent implements OnInit{
     }
 
     ngOnInit(): void {
+        this.title.setTitle('Register')
         if(typeof(this.localstorage.getLocalStorageUserId) === 'number'){
             this.goToPage('')
         }
     }
+
+    getErrorMessage() {
+        if (this.email.hasError('required')) {
+          return 'You must enter a value';
+        }
+    
+        return this.email.hasError('email') ? 'Not a valid email' : '';
+      }
 
     registerUser(){
         this.user.firstName = this.registerForm.controls['firstName'].value
@@ -71,7 +81,8 @@ export class RegisterComponent implements OnInit{
                 }
                 this.localstorage.resetLocalStorage();
                 this.localstorage.setLocalStorageUserID(Number(userNewId.user_id));
-                this.goToPage('')
+                this.backend.newEmailVerification(this.user.email);
+                this.goToPage('/verify-email')
             }
         );
     }

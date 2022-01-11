@@ -16,7 +16,12 @@
             <label for="chatDescription">Description: Describe your chat, what it's about and other.</label>
             <input type="text"  class="form-control" id="description"
                    [(ngModel)]="modelChat.description" name="description">
-          </div>        
+          </div>  
+          <div>Please select the radius in which users will be able to see and join your chat:</div>  
+          <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
+          <div>
+            {{ radius }} meters radius.
+          </div>    
           <button type="submit" class="btn btn-success" (click)="onCreateChatSubmit()">Create!</button>
         </form>
     </div>

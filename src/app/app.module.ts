@@ -34,6 +34,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -90,6 +91,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     CreateChatComponent,
     ChatSettingsComponent,
     NavbarComponent,
+    FooterComponent,
     ],
   bootstrap: [ AppComponent ]
 })

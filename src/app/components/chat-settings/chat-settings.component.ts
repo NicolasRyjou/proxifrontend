@@ -12,7 +12,7 @@ import { Subscriber } from 'rxjs';
 })
 export class ChatSettingsComponent implements OnInit {
 
-  chatData = new ChatClass(1, 1, '', JSON.stringify(''))
+  chatData = new ChatClass(1, 1, '', '', 0.5)
   creatorData: any
 
   constructor(
@@ -29,23 +29,14 @@ export class ChatSettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Requesting data for chat: "+this.chatData.chatId)
-    let chatRequestedData: any = this.backend.getChatData(this.chatData.chatId)
-    this.bindDataFromRequest(chatRequestedData)
-    this.getNameForUserById(this.chatData.chatId)
-  }
-
-  bindDataFromRequest(dataForChat: any){
-    let coordinates: any = {
-      "lat": dataForChat.loc_latitude,
-      "lng": dataForChat.loc_longitude
-    };
-    this.chatData.chatId = Number(dataForChat.chat_id);
-    this.chatData.creatorId = Number(dataForChat.creator_id);
-    this.chatData.chatName = String(dataForChat.name);
-    this.chatData.coordinates = coordinates;
-    this.chatData.description = String(dataForChat.chat_id);
-    this.chatData.imageBase64 = this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.image.base64string); dataForChat.image;
+    console.log("Requesting data for chat: "+this.chatData.chatId);
+    this.backend.getChatData(this.chatData.chatId).then(dataForChat => {
+      let coordinates: any = {
+        "lat": dataForChat.loc_latitude,
+        "lng": dataForChat.loc_longitude
+      };
+      this.chatData = new ChatClass(Number(dataForChat.chat_id), Number(dataForChat.creator_id), String(dataForChat.name), coordinates, dataForChat.radius, String(dataForChat.description), this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string))
+    });
   }
 
   getNameForUserById(userId: number){

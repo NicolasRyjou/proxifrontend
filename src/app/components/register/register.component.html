@@ -8,29 +8,51 @@
       <label for="email">Email</label>
       <input type="text" id="txtEmail" formControlName="email"/>
       <label for="bio">Birthday</label>
-      <mat-form-field appearance="fill">
-         <mat-label>Choose a date</mat-label>
-         <input matInput [matDatepicker]="picker">
-         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-         <mat-datepicker #picker></mat-datepicker>
-       </mat-form-field>
+      <input type="text" id="txtBirthdays" formControlName="birthday"/>
       <label for="bio">About Me</label>
       <input type="text" id="txtBio" formControlName="bio"/>
-      <button type="submit" (click)="registerUser();">Register</button>
+      <button>Register</button>
    </form>
  </div>
 
- <form class="example-form">
-   <mat-form-field class="example-full-width" appearance="fill">
-     <mat-label>Your Name</mat-label>
-     <input matInput placeholder="Ex. John" value="Sushi">
-   </mat-form-field>
-   <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Your Family Name</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
-   <mat-form-field class="example-full-width" appearance="fill">
-     <mat-label>Describe yourself!</mat-label>
-     <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-   </mat-form-field>
- </form>
+<section class="vh-100 gradient-custom">
+<div class="container py-5 h-100">
+  <div class="row justify-content-center align-items-center h-100">
+    <div class="col-12 col-lg-9 col-xl-7">
+      <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+        <div class="card-body p-4 p-md-5">
+          <h1 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h1>
+          <p>Already have an account? <a style="text-decoration: underline;" (click)="goToPage('/login');">Login</a></p>
+          <form>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Your first name</mat-label>
+              <input matInput placeholder="Ex. Steve">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Your last name</mat-label>
+              <input matInput placeholder="Ex. Jobs">
+            </mat-form-field>
+            <div class="example-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Enter your email</mat-label>
+                <input matInput placeholder="email@example.com" formControlName="email" required>
+              </mat-form-field>
+            </div>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Tell us about you</mat-label>
+              <textarea matInput placeholder="Ex. I am a Russian"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Your birthday date</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="2000-01-01" formControlName="birthday">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <button type="button" class="btn btn-primary" type="submit" (click)="registerUser();">Register</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>

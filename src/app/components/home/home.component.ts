@@ -8,6 +8,7 @@ import { GlobalVariable } from 'src/global';
 import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { LocationService } from 'src/app/services/location-service/location.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -18,9 +19,9 @@ import { LocationService } from 'src/app/services/location-service/location.serv
 })
 export class HomeComponent implements OnInit{
     newUrl;
-    dataChats: ChatClass[];
+    dataChats: ChatClass[] = [];
     coords: any;
-    radius = 0.5; //meters
+    radius = 0.5; //km
 
     maxRadius = 5000;
     minRadius = 100;
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit{
         private router: Router,
         private backend: BackendService,
         public localstorage: LocalstorageService,
-        private locationservice: LocationService
+        private locationservice: LocationService,
+        private imageSanitizer: DomSanitizer
     ) { }
 
     ngOnInit(){
@@ -39,8 +41,15 @@ export class HomeComponent implements OnInit{
 
     updateNearMe(){
         this.locationservice.getPosition().then(pos => {
+            this.dataChats = [];
             this.backend.getChatNearMe(pos, this.radius).then(listOfChatsNearMe => {
-                console.log(listOfChatsNearMe)
+                listOfChatsNearMe.forEach((dataForChat: any) => {
+                    let coordinates: any = {
+                        "lat": dataForChat.loc_latitude,
+                        "lng": dataForChat.loc_longitude
+                      };
+                    this.dataChats.push(new ChatClass(Number(dataForChat.chat_id), Number(dataForChat.creator_id), String(dataForChat.name), coordinates, dataForChat.radius, String(dataForChat.description), this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string)))
+                });
             })
         })
     }
@@ -56,7 +65,7 @@ export class HomeComponent implements OnInit{
     }
 
     goToPage(pageName:string, name: any){
-        console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+name)
-        this.router.navigate([`${pageName}`, name]);
+        console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+'/'+name)
+        this.router.navigate([`${pageName}/`, name]);
     }
 }

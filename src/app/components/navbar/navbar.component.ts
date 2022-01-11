@@ -21,10 +21,15 @@ export class NavbarComponent implements OnInit {
   eraseCookiesAndLogout(){
     this.localstorage.resetLocalStorage();
     console.log("Logging out. Erasing localstorage. redirecting to login page")
-    this.goToPage('login', '')
+    this.goToPage('login')
   }
   
-  goToPage(pageName:string, name: any){
+  searchQueryChanged(event){
+    console.log("Need to search for chats were similar to "+event.value)
+  }
+
+
+  goToPage(pageName:string){
     console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+name)
     this.router.navigate([`${pageName}`, name]);
   }

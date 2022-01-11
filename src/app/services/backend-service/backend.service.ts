@@ -22,7 +22,7 @@ export class BackendService {
     return this.http.get(this.backendUrl+"/chats/"+chatId).toPromise();
   }
   
-  getRecentChatId(userId: number): Promise<any> {
+  getRecentChats(userId: number): Promise<any> {
     return this.http.get(this.backendUrl+"/recent/"+userId).toPromise();
   }
 
@@ -32,6 +32,10 @@ export class BackendService {
 
   getMessagesFromBefore(chatId: number, messageNumber: number): Promise<any>{
     return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber).toPromise()
+  }
+
+  newEmailVerification(email){
+    return this.http.post(this.backendUrl+"/verify", {'email': email});
   }
 
   getUserData(userId: number) {

@@ -1,10 +1,43 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark navbar-other">
-    <div class="navbar-nav">
-        <div class="logo-placeholder"><img src="../assets/img/proxi_logo.png" alt="Proxi Logo"></div>
-        <a class="nav-item nav-link nav-spacer" routerLink="/">Home</a>
-        <a class="nav-item nav-link" routerLink="/login">Login</a>
-        <a class="nav-item nav-link" routerLink="/register">Register</a>
-        <a class="nav-item nav-link" routerLink="/create">Create chat</a>
-        <a class="nav-item nav-link" (click)="eraseCookiesAndLogout();">Logout</a>      
-    </div>
-  </nav>
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+    <ul class="navbar-nav ml-auto">
+      <form class="d-flex input-group w-auto">
+        <input
+          class="form-control"
+          placeholder="Type query"
+          aria-label="Search"
+          (change)="searchQueryChanged($event)"
+        />
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          data-mdb-ripple-color="dark"
+        (click)="goToPage('/search')">
+          Search
+        </button>
+      </form>
+      <li class="nav-item active">
+        <a class="nav-link waves-effect waves-light" href="#">
+          <i class="fas fa-envelope"></i> Contact
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light" href="#">
+          <i class="fas fa-gear"></i> Settings</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i> Profile </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+          <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+          <a class="dropdown-item waves-effect waves-light" href="#">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
