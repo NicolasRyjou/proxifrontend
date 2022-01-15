@@ -10,12 +10,17 @@ import { GlobalVariable } from 'src/global';
 })
 export class NavbarComponent implements OnInit {
 
+  isRegistered = false;
+
   constructor(
     private localstorage: LocalstorageService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    if(typeof(this.localstorage.getLocalStorageUserId()) === 'number'){
+      this.isRegistered = true;
+    }
   }
 
   eraseCookiesAndLogout(){
@@ -30,8 +35,8 @@ export class NavbarComponent implements OnInit {
 
 
   goToPage(pageName:string){
-    console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+name)
-    this.router.navigate([`${pageName}`, name]);
+    console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName)
+    this.router.navigate([`${pageName}`]);
   }
 
 }

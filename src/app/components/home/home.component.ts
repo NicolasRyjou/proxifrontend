@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit{
     maxRadius = 5000;
     minRadius = 100;
     radiusSliderSteps = 25;
+    
  
     constructor(
         private router: Router,

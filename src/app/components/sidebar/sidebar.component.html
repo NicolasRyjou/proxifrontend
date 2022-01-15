@@ -1,9 +1,9 @@
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-  <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-    <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-    <span class="fs-5 fw-semibold">Your Chats</span>
+<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 100%; height: 100%;  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <a class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom" style="background-color: #3f3f3f;">
+    <span class="fs-5 fw-semibold" style="color: aliceblue; padding: 10px; padding-left: 0px;">Recent Chats</span>
   </a>
-  <div class="list-group list-group-flush border-bottom scrollarea" *ngFor="let chat of chatData">
+  <div style="overflow-y: scroll;">
+  <div class="list-group list-group-flush border-bottom" *ngFor="let chat of chatData">
     <a class="{{ unselectedChat }}" (click)="goToPage('/chat/', chat.chatId)">
       <div class="d-flex w-100 align-items-center justify-content-between">
         <strong class="mb-1">{{ chat.chatName }}</strong>
@@ -12,4 +12,6 @@
       <div class="col-10 mb-1 small">{{ chat.description }}</div>
     </a>
   </div>
+  <button mat-raised-button color="primary" style="margin-top: 5%; margin-left: 30%; margin-bottom: 100%;" (click)="goToPage('', null)">Look for other chats?</button>
 </div>
+<div>

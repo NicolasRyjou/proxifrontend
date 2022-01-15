@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Sanitizer } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SocketioService } from 'src/app/services/socketio-service/socketioconn.service';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
@@ -22,7 +22,8 @@ export class ChatComponent implements OnInit{
         private socketService: SocketioService,
         private imageSanitizer: DomSanitizer,
         private backend: BackendService,
-        private localstorageservice: LocalstorageService
+        private localstorageservice: LocalstorageService,
+        private router: Router
     ) {
         this.activatedRoute.paramMap.subscribe(
             params=>{
@@ -81,5 +82,9 @@ export class ChatComponent implements OnInit{
 
     deleteMessage(message_id: number){
         this.socketService.deleteMessage(message_id);
+    }
+
+    goToPage(pageName: string){
+        this.router.navigate([`${pageName}`]);
     }
 }

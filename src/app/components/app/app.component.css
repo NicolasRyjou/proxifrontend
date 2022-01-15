@@ -1,5 +1,7 @@
 .main_body{
     background-color: #ffffff;
+    overflow-x: hidden;
+
 }
 
 .navbar-other{

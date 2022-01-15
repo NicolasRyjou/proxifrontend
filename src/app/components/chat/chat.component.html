@@ -1,10 +1,18 @@
 <h1 class="chat-title">{{ chatData.chatName }}</h1>
 <h6>{{chatData.description}}</h6>
 <br>
+<div style="padding: 10px; border-color: black; overflow-y:scroll; height: 800px;">
 <h6 *ngFor="let message of listLastRecentMessages; let i=index">
     <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 <h6 *ngFor="let message of (messages$ | async); let i=index">
     <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
-<input #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');">
+</div>
+<input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');" style="z-index: 999; width: 100%;     outline: none;
+" placeholder="Your message">
+<span class="material-icons-outlined" (click)="goToPage('/create');" style="position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 1.5em;
+    height: 1.5em;"></span>

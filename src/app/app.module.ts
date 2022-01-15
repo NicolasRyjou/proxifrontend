@@ -1,12 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps'
 import { CommonModule } from "@angular/common";
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
@@ -35,29 +33,54 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FooterComponent } from './components/footer/footer.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
+import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
+import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
+import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { MdbPopoverModule } from 'mdb-angular-ui-kit/popover';
+import { MdbRadioModule } from 'mdb-angular-ui-kit/radio';
+import { MdbRangeModule } from 'mdb-angular-ui-kit/range';
+import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
+import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
+import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
+import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
+import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatIconModule } from '@angular/material/icon';
+import { AgmCoreModule } from '@agm/core';
+
+const imports = [
+  BrowserModule,
+  CommonModule,
+  MatIconModule,
+  appRoutingModule,
+  SocialLoginModule,
+  BrowserAnimationsModule,
+  MatExpansionModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSliderModule,
+  HttpClientModule,
+  ReactiveFormsModule,
+  FormsModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatNativeDateModule,
+  AgmCoreModule.forRoot({
+    apiKey: 'AIzaSyBoqbGDbzB-Ggw2WHqSJntPwuMy2VITgb0'
+  })
+]
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CommonModule,
-    appRoutingModule,
-    SocialLoginModule,
-    BrowserAnimationsModule,
-    MatExpansionModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSliderModule,
-    HttpClientModule,
-    GoogleMapsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatCardModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-  ],    
+  imports: [...imports, MdbAccordionModule, MdbCarouselModule, MdbCheckboxModule, MdbCollapseModule, MdbDropdownModule, MdbFormsModule, MdbModalModule, MdbPopoverModule, MdbRadioModule, MdbRangeModule, MdbRippleModule, MdbScrollspyModule, MdbTabsModule, MdbTooltipModule, MdbValidationModule, BrowserAnimationsModule, NgbModule],    
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
@@ -92,6 +115,7 @@ import { FooterComponent } from './components/footer/footer.component';
     ChatSettingsComponent,
     NavbarComponent,
     FooterComponent,
+    ContactComponent,
     ],
   bootstrap: [ AppComponent ]
 })

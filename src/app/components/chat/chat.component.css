@@ -1,3 +1,55 @@
 .chat-title{
     padding: 20px;
 }
+.input {
+  
+    position:relative;
+    
+    font-size: 1.5em;
+    
+    background: linear-gradient(21deg, #10abff, #1beabd);
+    
+    padding: 3px;
+    
+    display: inline-block;
+    border-radius: 9999em;
+    
+  }
+  
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height:1.5;
+    font-size:1em;
+  }
+  
+  body {
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  html, body {
+    height:100%;
+  }
+  
+  input {
+    font-family: inherit;
+    line-height:inherit;
+    color:#2e3750;
+    min-width:12em;
+  }
+  
+  ::placeholder {
+    color:#cbd0d5;
+  }
+  
+  html::after {
+    content:'';
+    background: linear-gradient(21deg, #10abff, #1beabd);
+    height:3px;
+    width:100%;
+    position:absolute;
+    left:0;
+    top:0;
+  }

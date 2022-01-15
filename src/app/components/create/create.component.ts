@@ -32,11 +32,15 @@ export class CreateChatComponent implements OnInit {
   maxRadius = 5000;
   minRadius = 100;
   radiusSliderSteps = 25;
-
+  isVerified = false;
+  
   ngOnInit() {
     this.backend.getVar('chatNumber')
     if(typeof(Number(this.localstorageservice.getLocalStorageUserId())) === 'number'){
       this.userId = Number(this.localstorageservice.getLocalStorageUserId());
+      this.backend.getIsVerified(this.userId).then((isVerifiedRespFromServer) => {
+        this.isVerified = isVerifiedRespFromServer;
+      })
     } else {
       console.log("No user id detected. Please log in.")
       this.goToPage('login')
@@ -51,10 +55,11 @@ export class CreateChatComponent implements OnInit {
   }
 
   onCreateChatSubmit() { 
+
     this.modelChat.radius = this.radius;
     console.log(this.modelChat)
     this.backend.post('/chats/12345', this.modelChat);
-    delay(1000)
+    delay(1000);
     let chatNumberBefore: number = Number(this.backend.getVar('chatNumber'));
     let redirectUrlChatId = chatNumberBefore+1;
     this.backend.postVar("chatNumber", redirectUrlChatId)

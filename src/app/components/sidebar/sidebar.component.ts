@@ -38,9 +38,9 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  goToPage(pageName: string, id: number){
+  goToPage(pageName: string, id: any){
       console.log("Redirecting to chat number: "+id);
-      this.router.navigate([`${pageName}`,id]);
+      this.router.navigate([`${pageName}/${id}`]);
   }
 
 }

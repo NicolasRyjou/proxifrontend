@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register';
 import { ChatComponent } from './components/chat';
 import { CreateChatComponent } from './components/create';
 import { ChatSettingsComponent } from './components/chat-settings';
+import { ContactComponent } from './components/contact/contact.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'chat/:chatId', component: ChatComponent },
     { path: 'create', component: CreateChatComponent },
     { path: 'chat-settings/:chatId', component: ChatSettingsComponent},
+    { path: 'contact-us', component: ContactComponent},
     { path: '**', redirectTo: ''}
 ];
 

@@ -1,43 +1,68 @@
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-    <ul class="navbar-nav ml-auto">
-      <form class="d-flex input-group w-auto">
-        <input
-          class="form-control"
-          placeholder="Type query"
-          aria-label="Search"
-          (change)="searchQueryChanged($event)"
-        />
-        <button
-          class="btn btn-outline-primary"
-          type="button"
-          data-mdb-ripple-color="dark"
-        (click)="goToPage('/search')">
-          Search
-        </button>
-      </form>
-      <li class="nav-item active">
-        <a class="nav-link waves-effect waves-light" href="#">
-          <i class="fas fa-envelope"></i> Contact
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light" href="#">
-          <i class="fas fa-gear"></i> Settings</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i> Profile </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
-          <a class="dropdown-item waves-effect waves-light" href="#">Log out</a>
-        </div>
-      </li>
-    </ul>
+<nav class="navbar navbar-expand-lg" style="background-color: rgb(78, 78, 78); width: 100%; top: 0;left: 0; position: fixed; z-index: 9999999; padding: 15px">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarLeftAlignExample"
+      aria-controls="navbarLeftAlignExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" style="color: cornsilk;" aria-current="page" (click)="goToPage('')"><img src="../../../assets/img/proxi_logo.png" style="width:15%;
+            height:auto;"></a>
+        </li>
+        <li class="nav-item" style="margin-left: 0px;">
+          <a class="nav-link" style="color: cornsilk;" >Contact Us</a>
+        </li>
+        <li class="nav-item" style="margin-left: 0px;">
+          <a class="nav-link" style="color: cornsilk;" >What is this website?</a>
+        </li>
+        <!-- Navbar dropdown -->
+        <div *ngIf="isRegistered; then userRegistered else userNotRegistered"></div>
+        <ng-template #userNotRegistered>
+          <button type="button" class="btn btn-success" (click)="goToPage('register')">Register</button>
+        </ng-template>
+        <ng-template #userRegistered>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+              style="color: cornsilk;" 
+            >My account
+            </a>
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" (click)="goToPage('/my-chats')">My chats</a>
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="goToPage('/settings')">Account Settings</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" (click)="eraseCookiesAndLogout()">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ng-template>
+      </ul>
+      <!-- Left links -->
+    </div>
+    <!-- Collapsible wrapper -->
   </div>
+  <!-- Container wrapper -->
 </nav>

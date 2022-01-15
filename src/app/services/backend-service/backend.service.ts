@@ -18,6 +18,10 @@ export class BackendService {
     return this.http.post<any>(this.backendUrl + urlAddress, JSON.stringify(data)).toPromise();
   }
 
+  update(urlAddress: string, data): Promise<any>{
+    return this.http.put<any>(this.backendUrl+urlAddress, data).toPromise();
+  }
+
   getChatData(chatId: number): Promise<any> {
     return this.http.get(this.backendUrl+"/chats/"+chatId).toPromise();
   }
@@ -28,6 +32,10 @@ export class BackendService {
 
   getChatNearMe(coords, radius): Promise<any>{
     return this.http.get(this.backendUrl+"/get-chats-near-me?lat="+coords.lat+"&lng="+coords.lng+"&radius="+radius).toPromise();
+  }
+
+  getIsVerified(userId: number): Promise<any>{
+    return this.http.get(this.backendUrl+"/is-verified/"+userId).toPromise();
   }
 
   getMessagesFromBefore(chatId: number, messageNumber: number): Promise<any>{

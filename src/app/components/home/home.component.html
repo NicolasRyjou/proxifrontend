@@ -1,26 +1,47 @@
-<h1 class="title">Home page</h1>
-<app-maps>
-</app-maps>
-<mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
-<div>
-  {{ radius }} meters radius.
+<div class="main-container">
+  <h1 class="title">Home page</h1>
+  <div class="maps-container">
+    <app-maps [radiusOfChats]='radius' [markers]='dataChats'></app-maps>
+  </div>
+
+  <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
+  <div>
+    {{ radius }} meters radius.
+  </div>
+  <button type="button" class="btn btn-info" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255);">Update</p></button>
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <li *ngFor="let chat of dataChats">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ chat.chatName }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ chat.description }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    
+      <p>{{ chat.description }}{{ chat | json }}</p>
+    
+      <mat-action-row>
+        <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </li>
 </div>
-<button (click)="updateNearMe();">Update</button>
-<li *ngFor="let chat of dataChats">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ chat.chatName }}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{ chat.description }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-  
-    <p>{{ chat.description }}{{ chat | json }}</p>
-  
-    <mat-action-row>
-      <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</li>

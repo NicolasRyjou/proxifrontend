@@ -1,55 +1,43 @@
-<div class="container" style="max-width: 550px">
-   <h2 class="text-center mb-5">Register</h2> 
-   <form [formGroup]="registerForm">
-      <label for="firstName">First Name</label>
-      <input type="text" id="txtFName" formControlName="firstName"/>
-      <label for="lastName">Last Name</label>
-      <input type="text" id="txtSName" formControlName="lastName"/>
-      <label for="email">Email</label>
-      <input type="text" id="txtEmail" formControlName="email"/>
-      <label for="bio">Birthday</label>
-      <input type="text" id="txtBirthdays" formControlName="birthday"/>
-      <label for="bio">About Me</label>
-      <input type="text" id="txtBio" formControlName="bio"/>
-      <button>Register</button>
-   </form>
- </div>
 
-<section class="vh-100 gradient-custom">
+
+<section class="vh-100 gradient-custom" style="padding-top: 0;">
 <div class="container py-5 h-100">
   <div class="row justify-content-center align-items-center h-100">
     <div class="col-12 col-lg-9 col-xl-7">
+      <div class="alert alert-danger" role="alert" *ngIf="isExistingButNeedsToLogin">
+        A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+      </div>
       <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
         <div class="card-body p-4 p-md-5">
           <h1 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h1>
-          <p>Already have an account? <a style="text-decoration: underline;" (click)="goToPage('/login');">Login</a></p>
+          <p style="margin-bottom: 10%; margin-top: 0;">Already have an account? <a style="text-decoration: underline;" (click)="goToPage('/login');">Login</a></p>
           <form>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
               <mat-label>Your first name</mat-label>
               <input matInput placeholder="Ex. Steve">
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
               <mat-label>Your last name</mat-label>
               <input matInput placeholder="Ex. Jobs">
             </mat-form-field>
             <div class="example-container">
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill" style="width: 100%;" >
                 <mat-label>Enter your email</mat-label>
-                <input matInput placeholder="email@example.com" formControlName="email" required>
+                <input matInput placeholder="email@example.com" style="width: 100%;"  formControlName="email" required>
               </mat-form-field>
             </div>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
               <mat-label>Tell us about you</mat-label>
               <textarea matInput placeholder="Ex. I am a Russian"></textarea>
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill"  style="width: 100%;" >
               <mat-label>Your birthday date</mat-label>
-              <input matInput [matDatepicker]="picker" placeholder="2000-01-01" formControlName="birthday">
+              <input matInput [matDatepicker]="picker" placeholder="01/01/1999" formControlName="birthday">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <button type="button" class="btn btn-primary" type="submit" (click)="registerUser();">Register</button>
           </form>
+          <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-primary" type="submit" (click)="registerUser();">Register</button>
       </div>
     </div>
   </div>

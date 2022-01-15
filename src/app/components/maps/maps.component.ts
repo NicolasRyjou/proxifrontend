@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild, Input } from '@angular/core'
 import { MapInfoWindow, MapMarker, GoogleMap } from '@angular/google-maps'
+import { ChatClass } from 'src/app/structures/chat-d-struc';
 
 @Component({
   selector: 'app-maps',
@@ -10,18 +11,11 @@ export class MapsComponent implements OnInit {
   @ViewChild(GoogleMap, { static: false }) map: GoogleMap
   @ViewChild(MapInfoWindow, { static: false }) info: MapInfoWindow
 
-  zoom = 12;
-  center: google.maps.LatLngLiteral;
-  options: google.maps.MapOptions = {
-    zoomControl: false,
-    scrollwheel: false,
-    disableDoubleClickZoom: true,
-    mapTypeId: 'roadmap',
-    maxZoom: 15,
-    minZoom: 8,
-  }
-  markers = []
-  infoContent = ''
+  @Input() markers: ChatClass[] = [];
+  @Input() radiusOfChats = 0;
+  center;
+  lat = 51.678418;
+  lng = 7.809007;
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -30,23 +24,14 @@ export class MapsComponent implements OnInit {
         lng: position.coords.longitude,
       }
     })
-  }
-
-  zoomIn() {
-    this.zoom++
-  }
-
-  zoomOut() {
-    this.zoom--
+    
   }
 
   logCenter() {
     console.log(JSON.stringify(this.map.getCenter()))
   }
 
-
   openInfo(marker: MapMarker, content) {
-    this.infoContent = content
     this.info.open(marker)
   }
 }

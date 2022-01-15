@@ -23,6 +23,8 @@ export class RegisterComponent implements OnInit{
     private bio:FormControl;
     private birthday:FormControl;
 
+    isExistingButNeedsToLogin = false
+
     constructor(
         private localstorage: LocalstorageService,
         private backend: BackendService,
@@ -36,7 +38,6 @@ export class RegisterComponent implements OnInit{
         this.bio = new FormControl("Hi, I am John!", [Validators.required]);
         this.birthday = new FormControl(new FormGroup({
             start: new FormControl(),
-            end: new FormControl(),
         }), [Validators.required]);
 
         this.registerForm=formBuilder.group({
@@ -69,6 +70,7 @@ export class RegisterComponent implements OnInit{
         this.user.email = String(this.registerForm.controls['email'].value)
         this.user.bio = this.registerForm.controls['bio'].value
         this.user.birthday = this.registerForm.controls['birthday'].value
+        console.log(this.user.birthday)
         //NEED TO UPLOAD ACTUAL IMAGE
         this.user.profPicB64 = "data:image/png;base64,uvhbijobhiv jgvhb";
         this.user.profPicFilePath = "/image.png";
@@ -77,7 +79,7 @@ export class RegisterComponent implements OnInit{
             (result) => {
                 userNewId = JSON.parse(result)
                 if(userNewId.is_existing){
-                    this.goToPage('login')
+                    this.isExistingButNeedsToLogin = true
                 }
                 this.localstorage.resetLocalStorage();
                 this.localstorage.setLocalStorageUserID(Number(userNewId.user_id));
