@@ -1,7 +1,7 @@
 <div class="main-container">
   <h1 class="title">Home page</h1>
   <div class="maps-container">
-    <app-maps [radiusOfChats]='radius' [markers]='dataChats'></app-maps>
+    <app-maps [radiusOfChats]='radius' [closeChats]='dataChats'></app-maps>
   </div>
 
   <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
