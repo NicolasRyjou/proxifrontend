@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
+import { Router } from '@angular/router';
 
 
 // just an interface for type safety.
@@ -38,11 +39,11 @@ export class MapsComponent implements OnInit {
   markers: marker[] = []
  
   constructor(
-    private mapsAPILoader: MapsAPILoader
+    private mapsAPILoader: MapsAPILoader,
+    private router: Router
   ) {
- 
+
   }
- 
  
   ngOnInit() {
     //load Map
@@ -121,6 +122,9 @@ export class MapsComponent implements OnInit {
     }else{
       return false;
     }
+  }
+  goToPage(pageName: string, additional: any){
+    this.router.navigate([`${pageName}`, additional])
   }
   
 }

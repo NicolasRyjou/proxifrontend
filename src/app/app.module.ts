@@ -52,6 +52,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { AgmCoreModule } from '@agm/core';
+import { WhatisthisComponent } from './components/whatisthis/whatisthis.component';
 
 const imports = [
   BrowserModule,
@@ -115,6 +116,7 @@ const imports = [
     NavbarComponent,
     FooterComponent,
     ContactComponent,
+    WhatisthisComponent,
     ],
   bootstrap: [ AppComponent ]
 })

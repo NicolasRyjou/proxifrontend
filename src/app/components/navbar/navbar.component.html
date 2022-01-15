@@ -23,10 +23,10 @@
             height:auto;"></a>
         </li>
         <li class="nav-item" style="margin-left: 0px;">
-          <a class="nav-link" style="color: cornsilk;" >Contact Us</a>
+          <a class="nav-link" style="color: cornsilk;" (click)="goToPage('contact-us')">Contact Us</a>
         </li>
         <li class="nav-item" style="margin-left: 0px;">
-          <a class="nav-link" style="color: cornsilk;" >What is this website?</a>
+          <a class="nav-link" style="color: cornsilk;" (click)="goToPage('what-is-this')">What is this website?</a>
         </li>
         <!-- Navbar dropdown -->
         <div *ngIf="isRegistered; then userRegistered else userNotRegistered"></div>

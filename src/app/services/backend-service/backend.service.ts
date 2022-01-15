@@ -26,6 +26,10 @@ export class BackendService {
     return this.http.get(this.backendUrl+"/chats/"+chatId).toPromise();
   }
   
+  verifyUser(userEmail: string): Promise<any> {
+    return this.http.get(this.backendUrl+'/verify?email='+userEmail).toPromise();
+  }
+
   getRecentChats(userId: number): Promise<any> {
     return this.http.get(this.backendUrl+"/recent/"+userId).toPromise();
   }

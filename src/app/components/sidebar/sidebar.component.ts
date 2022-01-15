@@ -30,16 +30,18 @@ export class SidebarComponent implements OnInit {
     this.httpService.getRecentChats(Number(this.localstorage.getLocalStorageUserId())).then((data: any) => {
       let dataForChats: Array<any> = data.ids;
       for(let i=0; i<dataForChats.length;i++){
+        console.log(dataForChats[i].chat_id+'  '+i)
         let temp = new ChatClass(dataForChats[i].chat_id, dataForChats[i].creator_id, dataForChats[i].name, {"lat":dataForChats[i].loc_latitude, "lng":dataForChats[i].loc_longitude}, dataForChats[i].description);
-        console.log(this.chatData)
         this.chatData.push(temp);
+        if(i==dataForChats.length){
+          break
+        }
       }
     });
   }
 
 
   goToPage(pageName: string, id: any){
-      console.log("Redirecting to chat number: "+id);
       this.router.navigate([`${pageName}/${id}`]);
   }
 

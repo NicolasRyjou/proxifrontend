@@ -75,7 +75,7 @@ export class ChatComponent implements OnInit{
 
     }
 
-    newMessage(message: string, image?: string, imageName?: string){///REPLACE string by File type
+    newMessage(message: string, image?: string, imageName?: string){
         let jsonned_string = JSON.stringify({"content":message, "user_id": this.userData.userId, "chat_id": this.chatData.chatId, "image":{"content":image, "filename": imageName}})
         this.socketService.newMessage(jsonned_string)
     }

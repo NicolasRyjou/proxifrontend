@@ -51,7 +51,8 @@ export class RegisterComponent implements OnInit{
 
     ngOnInit(): void {
         this.title.setTitle('Register')
-        if(typeof(this.localstorage.getLocalStorageUserId) === 'number'){
+        console.log(this.localstorage.getLocalStorageUserId());
+        if(typeof(this.localstorage.getLocalStorageUserId()) === 'number'){
             this.goToPage('')
         }
     }
@@ -69,8 +70,7 @@ export class RegisterComponent implements OnInit{
         this.user.lastName = this.registerForm.controls['lastName'].value
         this.user.email = String(this.registerForm.controls['email'].value)
         this.user.bio = this.registerForm.controls['bio'].value
-        this.user.birthday = this.registerForm.controls['birthday'].value
-        console.log(this.user.birthday)
+        this.user.birthday = '2020-01-01' // this.registerForm.controls['birthday'].value
         //NEED TO UPLOAD ACTUAL IMAGE
         this.user.profPicB64 = "data:image/png;base64,uvhbijobhiv jgvhb";
         this.user.profPicFilePath = "/image.png";
@@ -87,6 +87,7 @@ export class RegisterComponent implements OnInit{
                 this.goToPage('/verify-email')
             }
         );
+        this.backend.verifyUser(this.user.email);
     }
 
     goToPage(pageName:string){

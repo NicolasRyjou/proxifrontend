@@ -1,13 +1,15 @@
 <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" (mapReady)="onMapReady($event)">
 
 
-    <ng-container *ngFor="let m of markers; let i = index">
+    <ng-container *ngFor="let m of closeChats; let i = index">
 
-        <!-- agm-marker (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [iconUrl]="m.icon" *ngIf="m.isShown" -->
-        <agm-marker [latitude]="m.lat" [longitude]="m.lng" [iconUrl]="m.icon" *ngIf="m.isShown">
+        <!-- agm-marker (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat" [longitude]="m.lng" [label]="m.label" [iconUrl]="m.icon" *ngIf="m.isShown" /***[iconUrl]="m.im"***/ -->
+        <agm-marker [latitude]="m.coordinates.lat" [longitude]="m.coordinates.lng" (markerClick)="clickedMarker(m.chatName, i)">
 
             <agm-info-window>
-                <div>{{m.content}}</div>
+                <h4 style="margin-left: 3%;">{{m.chatName}}</h4>
+                <div style="margin-bottom: 3%;">{{m.description}}</div>
+                <button type="button" class="btn btn-success" (click)="goToPage('/chat/', m.chatId)">Join chat</button>
             </agm-info-window>
 
         </agm-marker>
@@ -15,11 +17,11 @@
     </ng-container>
 
     <agm-circle [latitude]="radiusLat" [longitude]="radiusLong" [radius]="radiusOfChats" [fillColor]="'red'"
-        [circleDraggable]="true" [editable]="false" (dragEnd)="radiusDragEnd($event)"
+        [editable]="false" (dragEnd)="radiusDragEnd($event)"
         (radiusChange)="event('radiusChange',$event)">
     </agm-circle>
 
 </agm-map>
-
+<div>Your location:</div>
 <div>Latitude: {{latitude}}</div>
 <div>Longitude: {{longitude}}</div>

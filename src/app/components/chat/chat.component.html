@@ -3,10 +3,10 @@
 <br>
 <div style="padding: 10px; border-color: black; overflow-y:scroll; height: 800px;">
 <h6 *ngFor="let message of listLastRecentMessages; let i=index">
-    <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
+    <mat-card>{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 <h6 *ngFor="let message of (messages$ | async); let i=index">
-    <mat-card>{{message.messageId}}:{{ message.content }} <button (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
+    <mat-card>{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 </div>
 <input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');" style="z-index: 999; width: 100%;     outline: none;

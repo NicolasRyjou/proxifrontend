@@ -3,7 +3,6 @@
   <div class="maps-container">
     <app-maps [radiusOfChats]='radius' [closeChats]='dataChats'></app-maps>
   </div>
-
   <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
   <div>
     {{ radius }} meters radius.
