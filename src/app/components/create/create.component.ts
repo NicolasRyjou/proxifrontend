@@ -4,7 +4,7 @@ import { BackendService } from 'src/app/services/backend-service/backend.service
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { Router } from '@angular/router';
 import { GlobalVariable } from 'src/global';
-import { delay } from 'rxjs';
+import { delay, retry } from 'rxjs';
 import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Component({
@@ -21,7 +21,7 @@ export class CreateChatComponent implements OnInit {
   ) { }
 
   userId: number = 1;
-  modelChat = new ChatClass(1, this.userId, "", null, 0.5);
+  modelChat = new ChatClass(1, this.userId, "", null, 0.5, false);
 
   imageError: string;
   isImageSaved: boolean;
@@ -55,7 +55,9 @@ export class CreateChatComponent implements OnInit {
   }
 
   onCreateChatSubmit() { 
-
+    if(!this.isVerified){
+     return
+    }
     this.modelChat.radius = this.radius;
     console.log(this.modelChat)
     this.backend.post('/chats/12345', this.modelChat);

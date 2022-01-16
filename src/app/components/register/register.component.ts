@@ -1,11 +1,12 @@
 import { Component, OnInit, setTestabilityGetter } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
 import { UserClass } from 'src/app/structures/user-d-struc';
 import { GlobalVariable } from 'src/global';
 import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { TitleService } from 'src/app/services/title-service/title.service';
+import { getMatIconFailedToSanitizeLiteralError } from '@angular/material/icon';
 
 export interface ResponceUserId{
     "user_id": number,
@@ -23,12 +24,15 @@ export class RegisterComponent implements OnInit{
     private bio:FormControl;
     private birthday:FormControl;
 
-    isExistingButNeedsToLogin = false
+    isExistingButNeedsToLogin = false;
+    isLoggedIn = false;
+    inCaseLoggedInEmail;
 
     constructor(
         private localstorage: LocalstorageService,
         private backend: BackendService,
         public router: Router,
+        private activatedRoute: ActivatedRoute,
         private formBuilder:FormBuilder,
         private title: TitleService
     ) {
@@ -36,9 +40,7 @@ export class RegisterComponent implements OnInit{
         this.lastName = new FormControl("Steve", [Validators.required]);
         this.email = new FormControl("example@gmail.com", [Validators.required]);
         this.bio = new FormControl("Hi, I am John!", [Validators.required]);
-        this.birthday = new FormControl(new FormGroup({
-            start: new FormControl(),
-        }), [Validators.required]);
+        this.birthday = new FormControl('', [Validators.required]);
 
         this.registerForm=formBuilder.group({
             firstName:this.firstName,
@@ -46,7 +48,14 @@ export class RegisterComponent implements OnInit{
             email:this.email,
             bio:this.bio,
             birthday:this.birthday,
-        })
+        });
+        this.activatedRoute.queryParams.subscribe(params => {
+            this.firstName.setValue(params['fname']);
+            this.lastName.setValue(params['lname']);
+            this.email.setValue(params['email']);
+            this.bio.setValue(params['desc']);
+            this.birthday.setValue(params['bday']);
+        });
     }
 
     ngOnInit(): void {
@@ -70,7 +79,7 @@ export class RegisterComponent implements OnInit{
         this.user.lastName = this.registerForm.controls['lastName'].value
         this.user.email = String(this.registerForm.controls['email'].value)
         this.user.bio = this.registerForm.controls['bio'].value
-        this.user.birthday = '2020-01-01' // this.registerForm.controls['birthday'].value
+        this.user.birthday = this.registerForm.controls['birthday'].value
         //NEED TO UPLOAD ACTUAL IMAGE
         this.user.profPicB64 = "data:image/png;base64,uvhbijobhiv jgvhb";
         this.user.profPicFilePath = "/image.png";
@@ -79,15 +88,17 @@ export class RegisterComponent implements OnInit{
             (result) => {
                 userNewId = JSON.parse(result)
                 if(userNewId.is_existing){
-                    this.isExistingButNeedsToLogin = true
+                    this.isExistingButNeedsToLogin = true; 
+                    let tempData: any = this.backend.getUserData(userNewId.user_id)
+                    this.inCaseLoggedInEmail = tempData.email;
                 }
                 this.localstorage.resetLocalStorage();
                 this.localstorage.setLocalStorageUserID(Number(userNewId.user_id));
                 this.backend.newEmailVerification(this.user.email);
-                this.goToPage('/verify-email')
+                let redirectUrl = 'verify-email?email='+this.user.email;
+                this.goToPage(redirectUrl);
             }
         );
-        this.backend.verifyUser(this.user.email);
     }
 
     goToPage(pageName:string){

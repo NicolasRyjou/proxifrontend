@@ -12,7 +12,7 @@ import { LocalstorageService } from 'src/app/services/localstorage-service/local
 @Component({ templateUrl: 'chat.component.html' })
 export class ChatComponent implements OnInit{
     userData = new UserClass(1, "", "", "");
-    chatData = new ChatClass(1, 1, "", null, 0.5, "", "");
+    chatData = new ChatClass(1, 1, "", null, 0.5, false, "", "");
     messages$ : Observable<MessageClass[]>;
     lastRecentMessages: MessageClass[];
     listLastRecentMessages:any = [];

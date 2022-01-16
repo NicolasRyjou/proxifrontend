@@ -5,30 +5,33 @@
   <div class="row justify-content-center align-items-center h-100">
     <div class="col-12 col-lg-9 col-xl-7">
       <div class="alert alert-danger" role="alert" *ngIf="isExistingButNeedsToLogin">
-        A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        An account to the email '{{inCaseLoggedInEmail}}' already exists. Please <a class="alert-link" (click)="goToPage('login');">login</a>.
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="isLoggedIn">
+        You are already logged in!
       </div>
       <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
         <div class="card-body p-4 p-md-5">
           <h1 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h1>
           <p style="margin-bottom: 10%; margin-top: 0;">Already have an account? <a style="text-decoration: underline;" (click)="goToPage('/login');">Login</a></p>
           <form [formGroup]="registerForm">
-            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill" >
               <mat-label>Your first name</mat-label>
-              <input matInput placeholder="Ex. Steve">
+              <input matInput placeholder="Ex. Steve" formControlName="firstName" required>
             </mat-form-field>
             <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
               <mat-label>Your last name</mat-label>
-              <input matInput placeholder="Ex. Jobs">
+              <input matInput placeholder="Ex. Jobs" formControlName="lastName" required>
             </mat-form-field>
             <div class="example-container">
               <mat-form-field appearance="fill" style="width: 100%;" >
                 <mat-label>Enter your email</mat-label>
-                <input matInput placeholder="email@example.com" style="width: 100%;"  formControlName="email" required>
+                <input matInput placeholder="email@example.com" style="width: 100%;" formControlName="email" required>
               </mat-form-field>
             </div>
             <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
               <mat-label>Tell us about you</mat-label>
-              <textarea matInput placeholder="Ex. I am a Russian"></textarea>
+              <textarea matInput placeholder="Ex. I am a Russian" formControlName="bio" required></textarea>
             </mat-form-field>
             <mat-form-field appearance="fill"  style="width: 100%;" >
               <mat-label>Your birthday date</mat-label>

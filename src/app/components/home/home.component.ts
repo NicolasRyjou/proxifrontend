@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit{
     dataChats: ChatClass[] = [];
     coords: any;
     radius = 0.5; //km
+    userId = Number(this.localstorage.getLocalStorageUserId());
 
     maxRadius = 5000;
     minRadius = 100;
@@ -45,11 +46,15 @@ export class HomeComponent implements OnInit{
             this.dataChats = [];
             this.backend.getChatNearMe(pos, this.radius).then(listOfChatsNearMe => {
                 listOfChatsNearMe.forEach((dataForChat: any) => {
+                    let tempIsUserSavedWhoCreated = false;
+                    if(dataForChat.creator_id == this.userId){
+                        tempIsUserSavedWhoCreated = true;
+                    }
                     let coordinates: any = {
                         "lat": dataForChat.loc_latitude,
                         "lng": dataForChat.loc_longitude
                       };
-                    this.dataChats.push(new ChatClass(Number(dataForChat.chat_id), Number(dataForChat.creator_id), String(dataForChat.name), coordinates, dataForChat.radius, String(dataForChat.description), this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string)))
+                    this.dataChats.push(new ChatClass(Number(dataForChat.chat_id), Number(dataForChat.creator_id), String(dataForChat.name), coordinates, dataForChat.radius, tempIsUserSavedWhoCreated, String(dataForChat.description), this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string)));
                 });
             })
         })

@@ -7,6 +7,7 @@ export class ChatClass {
         public chatName: string,
         public coordinates: any,
         public radius: number,
+        public isCreatedBySaved: boolean,
         public description?: string,
         public imageBase64?: SafeResourceUrl,
     ) {  }

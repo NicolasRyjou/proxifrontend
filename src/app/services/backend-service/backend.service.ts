@@ -4,6 +4,7 @@ import { GlobalVariable } from 'src/global';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { Observable, Subject } from 'rxjs';
 import { CheckboxRequiredValidator } from '@angular/forms';
+import { UserClass } from 'src/app/structures/user-d-struc';
 
 @Injectable()
 export class BackendService {
@@ -36,6 +37,10 @@ export class BackendService {
 
   getChatNearMe(coords, radius): Promise<any>{
     return this.http.get(this.backendUrl+"/get-chats-near-me?lat="+coords.lat+"&lng="+coords.lng+"&radius="+radius).toPromise();
+  }
+
+  delete(urlAddress: string, data:any): Promise<any>{
+    return this.http.delete(this.backendUrl+'/'+urlAddress+'/'+data).toPromise();
   }
 
   getIsVerified(userId: number): Promise<any>{
@@ -78,5 +83,9 @@ export class BackendService {
     return this.http.delete(this.backendUrl+"/chats/"+chatId).subscribe(
       (response) => console.log(response),
     );
+  }
+
+  verifyVerCode(email: string, code: number): Promise<any>{
+    return this.http.get(this.backendUrl+'/check-if-correct-code?email='+email+'&code='+code).toPromise();
   }
 }

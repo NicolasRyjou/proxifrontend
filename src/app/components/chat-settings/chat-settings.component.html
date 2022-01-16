@@ -1,3 +1,4 @@
 <h1>Settings for {{ chatData.chatName }}</h1>
-<h4>Created by {{ creatorData.fName + " " + creatorData.sName }}</h4>
-<app-maps></app-maps>
+<h4>Created by {{ creatorData.firstName + " " + creatorData.lastName }}</h4>
+<app-maps [radiusOfChats]="chatData.radius"></app-maps>
+<button type="button" class="btn btn-danger" (click)="deleteChat();">Delete chat</button>

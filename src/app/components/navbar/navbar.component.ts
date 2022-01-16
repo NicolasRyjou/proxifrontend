@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(typeof(this.localstorage.getLocalStorageUserId()) === 'number'){
+    if(typeof(this.localstorage.getLocalStorageUserId()) === 'string'){
       this.isRegistered = true;
     }
   }
@@ -26,7 +26,8 @@ export class NavbarComponent implements OnInit {
   eraseCookiesAndLogout(){
     this.localstorage.resetLocalStorage();
     console.log("Logging out. Erasing localstorage. redirecting to login page")
-    this.goToPage('login')
+    window.location.reload();
+    this.goToPage('register')
   }
   
   searchQueryChanged(event){
