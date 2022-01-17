@@ -16,7 +16,7 @@ export interface ResponceUserId{
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit{
 
-    private user = new UserClass();
+    public user = new UserClass();
     public registerForm:FormGroup;
     private firstName:FormControl;
     private lastName:FormControl;
@@ -60,7 +60,6 @@ export class RegisterComponent implements OnInit{
 
     ngOnInit(): void {
         this.title.setTitle('Register')
-        console.log(this.localstorage.getLocalStorageUserId());
         if(typeof(this.localstorage.getLocalStorageUserId()) === 'number'){
             this.goToPage('')
         }

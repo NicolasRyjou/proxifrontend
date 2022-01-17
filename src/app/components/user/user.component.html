@@ -1,1 +1,41 @@
-<p>user works!</p>
+<h1>Account settings for {{user.email}}</h1>
+
+<div *ngIf="hasSendRequest">
+    <div class="alert alert-danger" role="alert" *ngIf="!isSuccess">
+        Failed to update. Contact support if this happens again.
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="isSuccess">
+        Your account has been updated. You are good to go!
+    </div>
+</div>
+<form [formGroup]="registerForm">
+    <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill" >
+      <mat-label>Your first name</mat-label>
+      <input matInput placeholder="Ex. Steve" formControlName="firstName" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
+      <mat-label>Your last name</mat-label>
+      <input matInput placeholder="Ex. Jobs" formControlName="lastName" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
+      <mat-label>Tell us about you</mat-label>
+      <textarea matInput placeholder="Ex. I am a Russian" formControlName="bio" required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="fill"  style="width: 100%;" >
+      <mat-label>Your birthday date</mat-label>
+      <input matInput [matDatepicker]="picker" placeholder="01/01/1999" formControlName="birthday">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-dark" type="submit" (click)="updateUser();">Update account</button>
+  <div style="margin: 20px"></div>
+  <h1>Confirm your email</h1>
+  <p>An email will be send to your email address to confirm your identity.</p>
+  <button type="button" class="btn btn-primary" (click)="confirmUser();">Primary</button>
+  <div style="margin: 20px"></div>
+
+  <h1>Delete your account:</h1>
+  <p>This action is irrevirsible</p>
+  <button type="button" class="btn btn-danger" (click)="deleteAccount();">Delete</button>
+
+</form>

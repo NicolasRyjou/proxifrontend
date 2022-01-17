@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay } from 'rxjs';
@@ -17,7 +17,8 @@ export class VerifyCodeComponent implements OnInit {
     private backend: BackendService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private cdRef:ChangeDetectorRef
   ) {
     this.verificationCodeCode = new FormControl("123456", [Validators.required]);
     this.verificationCode=formBuilder.group({
@@ -37,7 +38,9 @@ export class VerifyCodeComponent implements OnInit {
   userData: UserClass = new UserClass(1, '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--');
 
   ngOnInit(): void {
-
+    this.backend.getUserDataThroughEmail(String(this.userData.email)).then((data:any) => {
+      this.userData = new UserClass(data.user_id, data.f_name, data.s_name, data.email, data.birthday, data.created_on, data.description, data.prof_pic, data.prof_pic_filename);
+    });
   }
 
   verifyIfCorrectCode(){
@@ -45,8 +48,8 @@ export class VerifyCodeComponent implements OnInit {
     this.backend.verifyVerCode(String(this.userData.email), Number(this.verificationCode.controls['verCode'].value)).then((data: any) => {
       if(data.validityOfCode){
         this.isVerified = true;
-        delay(2000);
-        this.router.navigate([``]);
+        this.cdRef.detectChanges();
+        setTimeout(()=>{ this.router.navigate([``]); }, 2000)
       } else if(data.validityOfCode){
         this.isVerified = false;
       }
@@ -54,6 +57,10 @@ export class VerifyCodeComponent implements OnInit {
   }
 
   retryToRegister(){
-    this.router.navigate([`register?fname=${this.userData.firstName}&lname=${this.userData.lastName}&email=${this.userData.email}&desc=${this.userData.bio}&bday=${this.userData.birthday}`]);
+    console.log(this.userData)
+
+    let tempString = `register?fname=${this.userData.firstName}&lname=${this.userData.lastName}&email=${this.userData.email}&desc=${this.userData.bio}&bday=${this.userData.birthday}`;
+    console.log(tempString)
+    this.router.navigate([`${tempString}`]);
   }
 }

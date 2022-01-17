@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit{
     updateNearMe(){
         this.locationservice.getPosition().then(pos => {
             this.dataChats = [];
-            this.backend.getChatNearMe(pos, this.radius).then(listOfChatsNearMe => {
+            this.backend.getChatNearMe(pos).then(listOfChatsNearMe => {
                 listOfChatsNearMe.forEach((dataForChat: any) => {
                     let tempIsUserSavedWhoCreated = false;
                     if(dataForChat.creator_id == this.userId){
@@ -68,6 +68,14 @@ export class HomeComponent implements OnInit{
 
     radiusSliderFunc(event: any){
         this.radius = event.value;
+    }
+
+    hasChatsNear(){
+        if(this.dataChats.length>0){
+            return true
+        } else {
+            return false
+        }
     }
 
     goToPage(pageName:string, name: any){

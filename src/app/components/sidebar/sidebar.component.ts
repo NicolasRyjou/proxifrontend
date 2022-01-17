@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
@@ -19,18 +19,22 @@ export class SidebarComponent implements OnInit {
   constructor(
     public httpService: BackendService, 
     public router: Router,
-    public localstorage: LocalstorageService
+    public localstorage: LocalstorageService,
+    private cdRef:ChangeDetectorRef
   ) { }
 
   chatData: ChatClass[] = [];
   MAX_SIDEBAR_CHAT = 100;
   unselectedChat: string = 'list-group-item list-group-item-action py-3 lh-tight';
   userId = Number(this.localstorage.getLocalStorageUserId());
+  areNoRecentChats: boolean = true;
 
   ngOnInit(): void {
     this.httpService.getRecentChats(this.userId).then((data: any) => {
       let dataForChats: Array<any> = data.ids;
       for(let i=0; i<dataForChats.length;i++){
+        this.areNoRecentChats = false;
+        this.cdRef.detectChanges();
         let tempWasCreatedBySavedUser = false;
         if(dataForChats[i].creator_id == this.userId){
           tempWasCreatedBySavedUser = true;
@@ -47,5 +51,8 @@ export class SidebarComponent implements OnInit {
   goToPage(pageName: string, id: any){
       this.router.navigate([`${pageName}/${id}`]);
   }
+  goToCreate(){
+    this.router.navigate([`create`]);
+}
 
 }

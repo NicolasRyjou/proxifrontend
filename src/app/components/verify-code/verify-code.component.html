@@ -1,14 +1,21 @@
 <h1 style="margin-bottom: 10px;">Verify your account</h1>
 <p>An email was send to you at the email address '{{ userData.email }}''. Please check your inbox. If you did not find it in your inbox, try your spam. If it was not send to you please retry <a style="text-decoration: underline;" (click)="retryToRegister();">here</a></p>
-<form [formGroup]="verificationCode">
+<form [formGroup]="verificationCode" style="margin-bottom: 5%;">
   <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill" style="width: 100%;" >
     <mat-label>Enter the recieved code</mat-label>
     <input matInput placeholder="123456" style="width: 100%;" formControlName="verCode" required>
   </mat-form-field>
-  <button type="button" class="btn btn-primary" type="submit" (click)="verifyIfCorrectCode();">Primary</button>
-
+  <button type="button" class="btn btn-primary" type="submit" (click)="verifyIfCorrectCode();">Check</button>
 </form>
 <div *ngIf="hasAttempted">
-  <div *ngIf="!isVerified">WRONG CODE</div>
-  <div *ngIf="isVerified">RIGHT CODE</div>
+  <div *ngIf="!isVerified">
+    <div class="alert alert-danger" role="alert">
+      This is the wrong code. If you registered multiple times, try to find the most recent email. If this didn't work, please retry <a style="text-decoration: underline;" (click)="retryToRegister();">here</a>
+    </div>    
+  </div>
+  <div *ngIf="isVerified">
+    <div class="alert alert-success" role="alert">
+      This is the right code! Your account has been verified. You will be redirected shortly
+    </div>
+  </div>
 </div>

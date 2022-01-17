@@ -9,6 +9,7 @@ import { ChatSettingsComponent } from './components/chat-settings';
 import { ContactComponent } from './components/contact/contact.component';
 import { WhatisthisComponent } from './components/whatisthis/whatisthis.component';
 import { VerifyCodeComponent } from './components/verify-code';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     { path: 'contact-us', component: ContactComponent},
     { path: 'what-is-this', component: WhatisthisComponent},
     { path: 'verify-email', component: VerifyCodeComponent},
+    { path: 'settings', component: UserComponent},
     { path: '**', redirectTo: ''},
 ];
 

@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit {
         this.backend.post('/user/12345', this.user)
       }
       delay(1000)
-      this.backend.getUserDataThroughEmail(this.user.email).subscribe(userId => {
-        this.localstorage.setLocalStorageUserID(Number(userId));
-      });
+      // this.backend.getUserDataThroughEmail(this.user.email).subscribe(userId => {
+      //   this.localstorage.setLocalStorageUserID(Number(userId));
+      // });
       this.goToPage('')
     });
   }

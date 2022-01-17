@@ -35,8 +35,8 @@ export class BackendService {
     return this.http.get(this.backendUrl+"/recent/"+userId).toPromise();
   }
 
-  getChatNearMe(coords, radius): Promise<any>{
-    return this.http.get(this.backendUrl+"/get-chats-near-me?lat="+coords.lat+"&lng="+coords.lng+"&radius="+radius).toPromise();
+  getChatNearMe(coords): Promise<any>{
+    return this.http.get(this.backendUrl+"/get-chats-near-me?lat="+coords.lat+"&lng="+coords.lng).toPromise();
   }
 
   delete(urlAddress: string, data:any): Promise<any>{
@@ -55,10 +55,8 @@ export class BackendService {
     return this.http.post(this.backendUrl+"/verify", {'email': email});
   }
 
-  getUserData(userId: number) {
-    return this.http.get(this.backendUrl+"/chats/"+userId).subscribe(
-      (response) => console.log(response),
-    )
+  getUserData(userId: number): Promise<any> {
+    return this.http.get(this.backendUrl+"/user/"+userId).toPromise();
   }
 
   getVar(varName: string){
@@ -70,7 +68,7 @@ export class BackendService {
   }
 
   getUserDataThroughEmail(email: string){
-    return this.http.get(this.backendUrl+'/get-user-id?email='+email)
+    return this.http.get(this.backendUrl+'/get-user?email='+email).toPromise();
   }
 
   deleteUser(userId: number){

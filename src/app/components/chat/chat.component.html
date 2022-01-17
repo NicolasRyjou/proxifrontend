@@ -6,7 +6,8 @@
     <mat-card>{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 <h6 *ngFor="let message of (messages$ | async); let i=index">
-    <mat-card>{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
+    <mat-card *ngIf="message.messageId == userData.userId" style="background-color: aquamarine;">{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
+    <mat-card *ngIf="message.messageId != userData.userId" style="background-color: aliceblue;">{{message.messageId}}:{{ message.content }} <button type="button" class="btn btn-outline-primary" (click)="deleteMessage(message.messageId)">Delete</button></mat-card>
 </h6>
 </div>
 <input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');" style="z-index: 999; width: 100%;     outline: none;

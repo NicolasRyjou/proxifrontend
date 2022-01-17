@@ -3,11 +3,7 @@
   <div class="maps-container">
     <app-maps [radiusOfChats]='radius' [closeChats]='dataChats'></app-maps>
   </div>
-  <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
-  <div>
-    {{ radius }} meters radius.
-  </div>
-  <button type="button" class="btn btn-info" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255); margin: 0;">Update</p></button>
+  <button type="button" class="btn btn-info" style="margin-left: 20px; margin-top: 5px;" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255); margin: 0;">Update</p></button>
   <li *ngFor="let chat of dataChats">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -21,12 +17,12 @@
           {{ chat.description }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-    
       <p>{{ chat.description }}</p>
-    
       <mat-action-row>
         <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
       </mat-action-row>
     </mat-expansion-panel>
   </li>
+  <div style="margin-top: 10px;" *ngIf="!hasChatsNear();">You don't have any chats near you.</div>
+  <div style="margin-top: 10px;">To find more chats, go to different places and try again.</div>
 </div>

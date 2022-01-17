@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
@@ -18,6 +18,7 @@ export class CreateChatComponent implements OnInit {
     public backend: BackendService,
     public localstorageservice: LocalstorageService,
     private router: Router,
+    private cdRef:ChangeDetectorRef
   ) { }
 
   userId: number = 1;
@@ -27,9 +28,9 @@ export class CreateChatComponent implements OnInit {
   isImageSaved: boolean;
   cardImageBase64: string;
 
-  radius = 0.5; //km
+  radius = 1000;
 
-  maxRadius = 5000;
+  maxRadius = 50000;
   minRadius = 100;
   radiusSliderSteps = 25;
   isVerified = false;
@@ -38,8 +39,9 @@ export class CreateChatComponent implements OnInit {
     this.backend.getVar('chatNumber')
     if(typeof(Number(this.localstorageservice.getLocalStorageUserId())) === 'number'){
       this.userId = Number(this.localstorageservice.getLocalStorageUserId());
-      this.backend.getIsVerified(this.userId).then((isVerifiedRespFromServer) => {
-        this.isVerified = isVerifiedRespFromServer;
+      this.backend.getIsVerified(this.userId).then((isVerifiedRespFromServer: any) => {
+        this.isVerified = isVerifiedRespFromServer.isValid;
+        this.cdRef.detectChanges();
       })
     } else {
       console.log("No user id detected. Please log in.")
@@ -75,5 +77,10 @@ export class CreateChatComponent implements OnInit {
   goToPage(pageName:string){
     console.log("Redirecting to page: " + GlobalVariable.BASE_URL + pageName);
     this.router.navigate([`${pageName}`]);
+  }
+
+  goToPageRetry(){
+    let email: any = this.backend.getUserData(this.userId);
+    this.router.navigate([`verify-email?email=${email.email}`]);
   }
 }
