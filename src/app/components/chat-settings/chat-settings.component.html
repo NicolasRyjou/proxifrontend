@@ -1,4 +1,42 @@
-<h1>Settings for {{ chatData.chatName }}</h1>
-<h4>Created by {{ creatorData.firstName + " " + creatorData.lastName }}</h4>
-<app-maps [radiusOfChats]="chatData.radius"></app-maps>
-<button type="button" class="btn btn-danger" (click)="deleteChat();">Delete chat</button>
+<h1>Settings for {{ chatData.chatName }}<h1 *ngIf="isUserSavedWhoCreated"></h1></h1>
+<h4>Created by {{ creatorData.firstName + " " + creatorData.lastName }} (User Id: {{creatorData.userId}})</h4>
+<app-maps [closeChats]="[chatData]" [isClickableMarker]='isClickableMarker'></app-maps>
+<div>
+<form [formGroup]="chatForm" style="margin-top: 20px;">
+    <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill" >
+      <mat-label>Chat name</mat-label>
+      <input matInput placeholder="Ex. Steve" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" style="width: 100%;"  appearance="fill">
+      <mat-label>Tell us about your chat</mat-label>
+      <textarea matInput placeholder="Ex. I am a Russian" formControlName="description" required></textarea>
+    </mat-form-field>
+    <br>
+    <h3>Choose effective radius (currently {{chatData.radius}} meters)</h3>
+    <mat-slider (input)="onInputChange($event)" [min]='0' [max]="10000" [step]="100" [value]="chatData.radius"></mat-slider>
+    <p>To have a wider radius, please contact support</p>
+    <br>
+  <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-primary" type="submit" (click)="updateChat();">Update chat data</button>
+  <br>
+</form>
+</div>
+<div *ngIf="hasTriedUpdating" style="margin-top: 15px;">
+    <div class="alert alert-danger" role="alert" *ngIf="!hasUpdatedChat">
+        Failed to update. Contact support if this happens again.
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="hasUpdatedChat">
+        Your chat has been updated. You are good to go!
+    </div>
+</div>
+<div style="margin: 20px"></div><div>
+    <h1>Delete your Chat:</h1>
+    <p style="margin-bottom: 30px;">This action is irrevirsible</p>
+    <button type="button" class="btn btn-danger" (click)="deleteChat();">Delete chat</button>
+    <div *ngIf="hasTriedDeleting">
+    <div class="alert alert-success" role="alert" *ngIf="hasDeletedChat">
+        Deleted this chat successfully.
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!hasDeletedChat">
+        Could not delete the chat. Please contact support.
+    </div>
+</div>

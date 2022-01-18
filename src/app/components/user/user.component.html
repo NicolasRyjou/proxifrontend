@@ -1,4 +1,5 @@
-<h1>Account settings for {{user.email}}</h1>
+<div *ngIf="hasAccount" style="margin-top: 25px;">
+  <h1 style="margin-bottom: 35px;">Account settings for {{user.email}}</h1>
 
 <div *ngIf="hasSendRequest">
     <div class="alert alert-danger" role="alert" *ngIf="!isSuccess">
@@ -29,13 +30,37 @@
     </mat-form-field>
   <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-dark" type="submit" (click)="updateUser();">Update account</button>
   <div style="margin: 20px"></div>
-  <h1>Confirm your email</h1>
-  <p>An email will be send to your email address to confirm your identity.</p>
-  <button type="button" class="btn btn-primary" (click)="confirmUser();">Primary</button>
-  <div style="margin: 20px"></div>
-
-  <h1>Delete your account:</h1>
-  <p>This action is irrevirsible</p>
-  <button type="button" class="btn btn-danger" (click)="deleteAccount();">Delete</button>
-
+  <div class="row">
+    <div class="column">
+      <h1 style="margin-right: 5%; margin-left: 3%;">Confirm your email</h1>
+      <p style="margin-right: 5%; margin-left: 3%;">An email will be send to your email address to confirm your identity.</p>
+      <button type="button" class="btn btn-primary" (click)="confirmUser();" style="margin-right: 5%; margin-left: 3%;">Send new email</button>
+      <div *ngIf="hasErrorHappened">
+        <div class="alert alert-danger" role="alert">
+          Could not resend confirmation email. Please contact support.
+        </div>
+      </div>
+      <div *ngIf="hasSendEmail">
+        <div class="alert alert-danger" role="alert">
+          Could not resend confirmation email. Please contact support.
+        </div>
+      </div>
+      <div style="margin: 20px"></div>
+    </div>
+    <div class="column">
+      <h1>Delete your account:</h1>
+      <p style="margin-bottom: 30px;">This action is irrevirsible</p>
+      <button type="button" class="btn btn-danger" (click)="deleteAccount();">Delete your account</button>
+      <div *ngIf="hasTriedDeleting">
+        <div class="alert alert-success" role="alert" *ngIf="hasDeletedAccount">
+          Deleted your account successfully. Hope you re-register later.
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="!hasDeletedAccount">
+          Could not delete your account. Please contact support.
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
+</div>
+<h1 *ngIf="!hasAccount">You are not logged in/do not have an account.</h1>

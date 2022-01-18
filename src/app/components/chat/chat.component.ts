@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, OnInit, Sanitizer } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, Sanitizer, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocketioService } from 'src/app/services/socketio-service/socketioconn.service';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
@@ -13,9 +13,13 @@ import { LocalstorageService } from 'src/app/services/localstorage-service/local
 export class ChatComponent implements OnInit{
     userData = new UserClass(1, "", "", "");
     chatData = new ChatClass(1, 1, "", null, 0.5, false, "", "");
+    toAgmData = [this.chatData]
     messages$ : Observable<MessageClass[]>;
     lastRecentMessages: MessageClass[];
     listLastRecentMessages:any = [];
+    message: string;
+    showhasTriedToAccessNoCreator: boolean = false;
+    hasTriedToAccessNoCreator: boolean = false;
 
     constructor(
         private activatedRoute:ActivatedRoute,
@@ -23,22 +27,34 @@ export class ChatComponent implements OnInit{
         private imageSanitizer: DomSanitizer,
         private backend: BackendService,
         private localstorageservice: LocalstorageService,
-        private router: Router
+        private router: Router,
+        private cdRef: ChangeDetectorRef
     ) {
         this.activatedRoute.paramMap.subscribe(
             params=>{
                 this.chatData.chatId=Number(params.get('chatId'));
             }
-        )
+        );
+        this.activatedRoute.queryParams.subscribe(params => {
+            let temp = params['origin']
+            if(temp == 'cs'){
+              this.showhasTriedToAccessNoCreator
+              this.hasTriedToAccessNoCreator = true
+              this.cdRef.detectChanges();
+              setTimeout(()=>{this.showhasTriedToAccessNoCreator = false; this.cdRef.detectChanges();})
+            }
+        });
     }
     
     ngOnInit(): void {
-        this.userData.userId = Number(this.localstorageservice.getLocalStorageUserId())
+        this.userData.userId = Number(this.localstorageservice.getLocalStorageUserId());
+        if(Number(this.userData.userId) == 0){
+            this.goToPage('register');
+        }
         let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
         this.backend.getChatData(this.chatData.chatId).then(data => {
             this.bindDataFromRequest(data)
         })
-        console.log(this.chatData)
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
         this.backend.getMessagesFromBefore(this.chatData.chatId, 50).then(data => {
@@ -46,7 +62,9 @@ export class ChatComponent implements OnInit{
                     this.listLastRecentMessages.push(data[i])
                 }
         });
-        this.socketService.getNewMessage()
+        this.socketService.getNewMessage();
+        this.cdRef.detectChanges();
+
 
     }
 
@@ -65,6 +83,7 @@ export class ChatComponent implements OnInit{
         this.chatData.coordinates = coordinates;
         this.chatData.description = String(dataForChat.description);
         this.chatData.imageBase64 = this.imageSanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + dataForChat.base64string); dataForChat.image;
+        this.chatData.radius = dataForChat.radius;
       }
 
     loadChat(chat_id: number){
@@ -76,6 +95,7 @@ export class ChatComponent implements OnInit{
     }
 
     newMessage(message: string, image?: string, imageName?: string){
+        this.message = '';
         let jsonned_string = JSON.stringify({"content":message, "user_id": this.userData.userId, "chat_id": this.chatData.chatId, "image":{"content":image, "filename": imageName}})
         this.socketService.newMessage(jsonned_string)
     }

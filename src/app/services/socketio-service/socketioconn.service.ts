@@ -35,7 +35,17 @@ export class SocketioService{
   }
 
   deleteMessage(data: number){
-    this.socket.emit("delete_message", data)
+    this.socket.emit("delete_message", data);
+    for(let i=0; i<this.messages.length; i++){
+      if(this.messages[i].messageId == data){
+        delete this.messages[i];
+      }
+    }
+    // for(let i=0; i<this._messages.length; i++){
+    //   if(this.messages[i].messageId == data){
+    //     delete this.messages[i];
+    //   }
+    // }
   }
 
   public getNewMessage = () => {

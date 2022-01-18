@@ -51,8 +51,8 @@ export class BackendService {
     return this.http.get(this.backendUrl+"/get-messages/"+chatId+"?hwmny="+messageNumber).toPromise()
   }
 
-  newEmailVerification(email){
-    return this.http.post(this.backendUrl+"/verify", {'email': email});
+  newEmailVerification(email): Promise<any>{
+    return this.http.post(this.backendUrl+"/verify", {'email': email}).toPromise();
   }
 
   getUserData(userId: number): Promise<any> {
@@ -71,16 +71,12 @@ export class BackendService {
     return this.http.get(this.backendUrl+'/get-user?email='+email).toPromise();
   }
 
-  deleteUser(userId: number){
-    return this.http.delete(this.backendUrl+"/users/"+userId).subscribe(
-      (response) => console.log(response),
-    );
+  deleteUser(userId: number): Promise<any>{
+    return this.http.delete(this.backendUrl+"/users/"+userId).toPromise();
   }
 
-  deleteChat(chatId: number){
-    return this.http.delete(this.backendUrl+"/chats/"+chatId).subscribe(
-      (response) => console.log(response),
-    );
+  deleteChat(chatId: number): Promise<any>{
+    return this.http.delete(this.backendUrl+"/chats/"+chatId).toPromise();
   }
 
   verifyVerCode(email: string, code: number): Promise<any>{

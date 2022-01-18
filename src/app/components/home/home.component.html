@@ -1,7 +1,7 @@
 <div class="main-container">
   <h1 class="title">Home page</h1>
   <div class="maps-container">
-    <app-maps [radiusOfChats]='radius' [closeChats]='dataChats'></app-maps>
+    <app-maps [closeChats]='dataChats'></app-maps>
   </div>
   <button type="button" class="btn btn-info" style="margin-left: 20px; margin-top: 5px;" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255); margin: 0;">Update</p></button>
   <li *ngFor="let chat of dataChats">

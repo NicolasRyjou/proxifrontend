@@ -20,6 +20,11 @@ export class UserComponent implements OnInit {
   userId: number = Number(this.localstorage.getLocalStorageUserId());
   isSuccess: boolean;
   hasSendRequest: boolean;
+  hasAccount: boolean = false;
+  hasErrorHappened: boolean = false;
+  hasDeletedAccount: boolean = false;
+  hasTriedDeleting: boolean = false;
+  hasSendEmail: boolean = false;
 
   public user = new UserClass();
   public registerForm:FormGroup;
@@ -53,6 +58,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle('Settings');
+    if(this.userId != 0){
+      this.hasAccount = true;
+    }
+    this.cdRef.detectChanges();
     this.backend.getUserData(this.userId).then((data:any) => {
       this.user = new UserClass(data.user_id, data.f_name, data.s_name, data.email, data.birthday, data.created_on, data.description, data.prof_pic, data.prof_pic_filename);
       this.firstName.setValue(this.user.firstName);
@@ -91,13 +100,26 @@ export class UserComponent implements OnInit {
   deleteAccount(){
     let confirmationString: string = "Are you sure you want to delete your account. This action is irreversible";
     if(confirm(confirmationString)){
-      this.backend.deleteUser(Number(this.user.userId));
+      this.hasTriedDeleting = true;
+      this.backend.deleteUser(Number(this.user.userId)).then((data:any)=>{
+        if(data.success){
+          this.localstorage.resetLocalStorage();
+          this.router.navigate([`register`])
+        } else {
+          this.hasDeletedAccount = false
+        }
+      });
     }
   }
 
   confirmUser(){
-    this.backend.newEmailVerification(this.user.email);
-    let redirectUrl = 'verify-email?email='+this.user.email;
-    this.router.navigate([redirectUrl]);
+    this.backend.newEmailVerification(this.user.email).then((data: any) => {
+      if(data.success){
+        this.router.navigate([`verify-email?email=${this.user.email}`]);
+      } else {
+        this.hasErrorHappened = true;
+        this.cdRef.detectChanges();
+      }
+    });
   }
 }

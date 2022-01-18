@@ -8,7 +8,7 @@
         You are verified. You can create chats.
       </div>
         <h1>Create a new chat!</h1>
-        <app-maps></app-maps>
+        <app-maps [closeChats]="[modelChat]"></app-maps>
         <p>The chat will be created for this location</p>
         <form #heroForm="ngForm">
           <div class="form-group">
