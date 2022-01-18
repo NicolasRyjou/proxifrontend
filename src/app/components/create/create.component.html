@@ -9,7 +9,7 @@
       </div>
         <h1>Create a new chat!</h1>
         <app-maps [closeChats]="[modelChat]"></app-maps>
-        <p>The chat will be created for this location</p>
+        <p style="padding-top: 35px;">The chat will be created for this location</p>
         <form #heroForm="ngForm">
           <div class="form-group">
             <label for="name">Chat Name</label>
@@ -25,7 +25,7 @@
           </div>
           <div>Please select the radius in which users will be able to see and join your chat:</div>  
           <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
-          <div>
+          <div style="margin-bottom: 10px;">
             {{ radius }} meters radius.
           </div>
           <button type="submit" class="btn btn-success" (click)="onCreateChatSubmit()">Create!</button>

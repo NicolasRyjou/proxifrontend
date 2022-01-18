@@ -24,10 +24,12 @@ export class NavbarComponent implements OnInit {
   }
 
   eraseCookiesAndLogout(){
-    this.localstorage.resetLocalStorage();
-    console.log("Logging out. Erasing localstorage. redirecting to login page")
-    window.location.reload();
-    this.goToPage('register')
+    if(confirm('Are you sure you want to logout?')){
+      this.localstorage.resetLocalStorage();
+      console.log("Logging out. Erasing localstorage. redirecting to login page")
+      window.location.reload();
+      this.goToPage('register');
+    }
   }
   
   searchQueryChanged(event){

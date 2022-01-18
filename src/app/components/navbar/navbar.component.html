@@ -1,7 +1,5 @@
 <nav class="navbar navbar-expand-lg" style="background-color: rgb(78, 78, 78); width: 100%; top: 0;left: 0; position: fixed; z-index: 9999999; padding: 15px">
-  <!-- Container wrapper -->
   <div class="container-fluid">
-    <!-- Toggle button -->
     <button
       class="navbar-toggler"
       type="button"
@@ -14,9 +12,7 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-      <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active" style="color: cornsilk;" aria-current="page" (click)="goToPage('')"><img src="../../../assets/img/proxi_logo.png" style="width:15%;
@@ -28,42 +24,23 @@
         <li class="nav-item" style="margin-left: 0px;">
           <a class="nav-link" style="color: cornsilk;" (click)="goToPage('what-is-this')">What is this website?</a>
         </li>
-        <!-- Navbar dropdown -->
-        <div *ngIf="isRegistered; then userRegistered else userNotRegistered"></div>
-        <ng-template #userNotRegistered>
-          <button type="button" class="btn btn-success" (click)="goToPage('register')">Register</button>
-        </ng-template>
-        <ng-template #userRegistered>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              data-mdb-toggle="dropdown"
-              aria-expanded="false"
-              style="color: cornsilk;" 
-            >My account
-            </a>
-            <!-- Dropdown menu -->
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item" (click)="goToPage('/my-chats')">My chats</a>
-              </li>
-              <li>
-                <a class="dropdown-item" (click)="goToPage('/settings')">Account Settings</a>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" (click)="eraseCookiesAndLogout()">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ng-template>
-        <button (click)="eraseCookiesAndLogout()">LOGOUT</button>
+        <div style="margin-left: auto; margin-right: 0;">
+          <div *ngIf="isRegistered; then userRegistered else userNotRegistered"></div>
+          <ng-template #userNotRegistered>
+            <button type="button" class="btn btn-success" (click)="goToPage('register')">Register</button>
+          </ng-template>
+          <ng-template #userRegistered>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>My Account</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <button ngbDropdownItem (click)="goToPage('/my-chats')">My chats</button>
+                  <button ngbDropdownItem (click)="goToPage('/settings')">Account Settings</button>
+                  <button ngbDropdownItem (click)="eraseCookiesAndLogout()">Logout</button>
+                </div>
+              </div>
+          </ng-template>
+      </div>
       </ul>
-      <!-- Left links -->
     </div>
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>

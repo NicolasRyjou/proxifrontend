@@ -53,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { AgmCoreModule } from '@agm/core';
 import { WhatisthisComponent } from './components/whatisthis/whatisthis.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const imports = [
   BrowserModule,
@@ -80,7 +81,7 @@ const imports = [
 ]
 
 @NgModule({
-  imports: [...imports], //, MdbAccordionModule, MdbCarouselModule, MdbCheckboxModule, MdbCollapseModule, MdbDropdownModule, MdbFormsModule, MdbModalModule, MdbPopoverModule, MdbRadioModule, MdbRangeModule, MdbRippleModule, MdbScrollspyModule, MdbTabsModule, MdbTooltipModule, MdbValidationModule, BrowserAnimationsModule, NgbModule],    
+  imports: [...imports, NgbModule], //, MdbAccordionModule, MdbCarouselModule, MdbCheckboxModule, MdbCollapseModule, MdbDropdownModule, MdbFormsModule, MdbModalModule, MdbPopoverModule, MdbRadioModule, MdbRangeModule, MdbRippleModule, MdbScrollspyModule, MdbTabsModule, MdbTooltipModule, MdbValidationModule, BrowserAnimationsModule, NgbModule],    
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

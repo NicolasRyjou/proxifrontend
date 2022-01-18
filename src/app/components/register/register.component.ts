@@ -102,6 +102,6 @@ export class RegisterComponent implements OnInit{
 
     goToPage(pageName:string){
         console.log("Redirecting to page: " + GlobalVariable.BASE_URL + pageName);
-        this.router.navigate([`${pageName}`]);
+        this.router.navigate([`/${pageName}`]);
       }
 }
