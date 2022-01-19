@@ -34,26 +34,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FooterComponent } from './components/footer/footer.component';
 import { ContactComponent } from './components/contact/contact.component';
-// import { MdbAccordionModule } from 'mdb-angular-ui-kit/accordion';
-// import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
-// import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-// import { MdbCollapseModule } from 'mdb-angular-ui-kit/collapse';
-// import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown';
-// import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-// import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
-// import { MdbPopoverModule } from 'mdb-angular-ui-kit/popover';
-// import { MdbRadioModule } from 'mdb-angular-ui-kit/radio';
-// import { MdbRangeModule } from 'mdb-angular-ui-kit/range';
-// import { MdbRippleModule } from 'mdb-angular-ui-kit/ripple';
-// import { MdbScrollspyModule } from 'mdb-angular-ui-kit/scrollspy';
-// import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
-// import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
-// import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { AgmCoreModule } from '@agm/core';
 import { WhatisthisComponent } from './components/whatisthis/whatisthis.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MychatsComponent } from './components/mychats/mychats.component';
 
 const imports = [
   BrowserModule,
@@ -118,6 +104,7 @@ const imports = [
     FooterComponent,
     ContactComponent,
     WhatisthisComponent,
+    MychatsComponent,
     ],
   bootstrap: [ AppComponent ]
 })

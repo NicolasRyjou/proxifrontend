@@ -4,6 +4,10 @@
 <h1 class="chat-title">{{ chatData.chatName }}</h1>
 <h6>{{chatData.description}}</h6>
 <br>
+<div *ngIf="isIcreated">
+    <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-primary" type="submit" (click)="goToEdit();">Edit this chat</button>
+</div>
+<br>
 <app-maps [closeChats]="toAgmData" [isClickableMarker]="false"></app-maps>
 <h1 style="margin: 20px">Chat now:</h1>
 <div style="padding: 10px; border-color: black; overflow-y:scroll; height: 800px;">
@@ -16,7 +20,7 @@
     <mat-card *ngIf="message.senderId != userData.userId" style="background-color: aliceblue;">{{message.sendOn}}:<div style="margin-left: 10px;"></div><h3>{{message.content }}</h3> </mat-card>
 </h6>
 </div>
-<input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');" [(ngModel)]="message" style="z-index: 999; width: 100%;     outline: none;
+<input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');"  class="form-control" [(ngModel)]="message" style="z-index: 999; width: 100%;     outline: none;
 " placeholder="Your message" #name required>
 <span class="material-icons-outlined" *ngIf="userData.userId == chatData.creatorId" (click)="goToPage('/create');" style="position: fixed;
     bottom: 1rem;

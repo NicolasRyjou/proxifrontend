@@ -17,16 +17,18 @@
                 </agm-info-window>
 
         </agm-marker>
-        <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="$any(icon)">
-            <agm-info-window>
-                <div>This is your location</div>
-            </agm-info-window>
-        </agm-marker>
         <agm-circle [latitude]="m.coordinates.lat" [longitude]="m.coordinates.lng" [radius]="m.radius" [fillColor]="'red'"
             [editable]="false">
-        </agm-circle>
+        </agm-circle>  
     </ng-container>
-
+    <agm-circle [latitude]="latitude" [longitude]="longitude" [radius]="radiusOfYouChat" [fillColor]="'blue'"
+            [editable]="false">
+        </agm-circle>
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [iconUrl]="$any(icon)">
+        <agm-info-window>
+            <div>This is your location</div>
+        </agm-info-window>
+    </agm-marker>
 </agm-map>
 <div style="border-width: 10px; border-color:  black;">
     <h2>Your location (Blue marker on Google Maps):</h2>

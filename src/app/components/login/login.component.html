@@ -1,33 +1,20 @@
-<div class="container" style="max-width: 550px">
-  <h2 class="text-center mb-5">Angular Login with Google</h2>
+<div class="container" style="max-width: 550px"> 
+  <h2 class="text-center mb-5" style="font: 3 em sans-sherif;">Login</h2>
 
   <div>
     <div>
-      <button type="button" (click)="signInWithGoogle()" class="btn btn-danger">Login with Google</button>
+      <button type="button" (click)="signInWithGoogle()" class="btn btn-success">Continue with Google</button>
     </div>
   </div>
-
+  <br>
   <div>
     <div class="form-group">
-      <label>First Name</label>
-      <input type="text" class="form-control" [value]="user.firstName" id="firstname" readonly>
-    </div>
-    <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" class="form-control" [value]="user.lastName" id="lastname" readonly>
-    </div>
-    <div class="form-group">
       <label>Email</label>
-      <input type="text" class="form-control" [value]="user.email" id="email" readonly>
-    </div>
+      <input class="input" #box (keyup.enter)="newLogin(box.value);" style="z-index: 999; width: 100%;     outline: none;
+      " placeholder="Your email" #name required  class="form-control">    </div>
     <div class="form-group">
-      <label>About Me</label>
-      <input type="text" class="form-control" [value]="user.bio" id="lastname" readonly>
+      <label>Password</label>
+      <input type="password" class="form-control" [value]="" id="password">
     </div>
-    <div class="form-group">
-      <label>Birthday</label>
-      <input type="date" class="form-control" [value]="user.birthday" id="lastname" readonly>
-    </div>
-    <button type="button" (click)="signOut()" class="btn btn-primary">Log Out</button>
   </div>
 </div>

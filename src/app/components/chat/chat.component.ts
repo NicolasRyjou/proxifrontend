@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit{
     message: string;
     showhasTriedToAccessNoCreator: boolean = false;
     hasTriedToAccessNoCreator: boolean = false;
+    isIcreated: boolean = false;
 
     constructor(
         private activatedRoute:ActivatedRoute,
@@ -92,6 +93,10 @@ export class ChatComponent implements OnInit{
 
     uploadImage(){
 
+    }
+
+    goToEdit(){
+        this.router.navigate([`chat/${this.chatData.chatId}/settings`])
     }
 
     newMessage(message: string, image?: string, imageName?: string){

@@ -36,21 +36,10 @@ export class LoginComponent implements OnInit {
     this.authService.authState.subscribe((userSocial) => {
       this.gUser = userSocial;
       this.isLoggedin = (userSocial != null);
-
-      this.user.firstName = this.gUser.firstName
-      this.user.lastName = this.gUser.lastName
       this.user.email = this.gUser.email
-      this.user.profPicFilePath = this.gUser.photoUrl
-      this.user.profPicB64 = 'b64 data'
-      this.user.birthday = "2021-12-12"
       if(this.isLoggedin){
-        this.backend.post('/user/12345', this.user)
+        this.handleLogin(this.user.email);
       }
-      delay(1000)
-      // this.backend.getUserDataThroughEmail(this.user.email).subscribe(userId => {
-      //   this.localstorage.setLocalStorageUserID(Number(userId));
-      // });
-      this.goToPage('')
     });
   }
 
@@ -62,6 +51,21 @@ export class LoginComponent implements OnInit {
     this.authService.signOut();
     this.localstorage.resetLocalStorage();
     this.goToPage("login")
+  }
+
+  newLogin(email: string){
+    this.handleLogin(email);
+  }
+
+  handleLogin(email: string){
+    this.backend.getUserDataThroughEmail(email).then((data:any)=>{
+      console.log(data)
+      if(data.user_id != 0 || data.user_id != null){
+        this.localstorage.resetLocalStorage();
+        this.localstorage.setLocalStorageUserID(Number(data.user_id));
+        setTimeout(()=>{this.goToPage('');}, 500)
+      }
+    });
   }
 
   goToPage(pageName:string){

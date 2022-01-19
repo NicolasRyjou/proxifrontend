@@ -41,11 +41,6 @@ export class SocketioService{
         delete this.messages[i];
       }
     }
-    // for(let i=0; i<this._messages.length; i++){
-    //   if(this.messages[i].messageId == data){
-    //     delete this.messages[i];
-    //   }
-    // }
   }
 
   public getNewMessage = () => {
@@ -53,8 +48,16 @@ export class SocketioService{
       console.log(message)
       this.messages.push(message)
       this._messages.next(Object.assign([], this.messages));
+      this.playNewMessageSound();
     });
   };
+
+  private playNewMessageSound(){
+    let audio = new Audio();
+    audio.src = "../../../assets/soundeffects/";
+    audio.load();
+    audio.play();
+  }
 
   disconnect() {
     if(this.socket){

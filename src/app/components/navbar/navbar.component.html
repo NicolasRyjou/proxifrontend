@@ -1,46 +1,24 @@
-<nav class="navbar navbar-expand-lg" style="background-color: rgb(78, 78, 78); width: 100%; top: 0;left: 0; position: fixed; z-index: 9999999; padding: 15px">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 100%; position: fixed; z-index: 9999999;">
   <div class="container-fluid">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarLeftAlignExample"
-      aria-controls="navbarLeftAlignExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" style="color: cornsilk;" aria-current="page" (click)="goToPage('')"><img src="../../../assets/img/proxi_logo.png" style="width:15%;
-            height:auto;"></a>
-        </li>
-        <li class="nav-item" style="margin-left: 0px;">
-          <a class="nav-link" style="color: cornsilk;" (click)="goToPage('contact-us')">Contact Us</a>
-        </li>
-        <li class="nav-item" style="margin-left: 0px;">
-          <a class="nav-link" style="color: cornsilk;" (click)="goToPage('what-is-this')">What is this website?</a>
-        </li>
-        <div style="margin-left: auto; margin-right: 0;">
+      <a class="navbar-brand" (click)="goToPage('');" style="width: 10%; height: auto; padding: 15px; padding-bottom: 20px;"><img src="../../../assets/img/proxi_logo.png"></a>
+      <div style="font: 1.5em sans-serif;float: right; color: rgb(255, 255, 255);"(click)="goToPage('')">Home</div>
+        <div style="font: 1.5em sans-serif;float: right; color: rgb(255, 255, 255);"(click)="goToPage('/contact-us')">Contact</div>
+        <div style="font: 1.5em sans-serif;float: right; color: rgb(255, 255, 255);"(click)="goToPage('/about')">About</div>
+        <div style="margin-right: 5%; background-color: aliceblue; border-radius: 6px;">
           <div *ngIf="isRegistered; then userRegistered else userNotRegistered"></div>
-          <ng-template #userNotRegistered>
-            <button type="button" class="btn btn-success" (click)="goToPage('register')">Register</button>
-          </ng-template>
-          <ng-template #userRegistered>
-              <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>My Account</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <button ngbDropdownItem (click)="goToPage('/my-chats')">My chats</button>
-                  <button ngbDropdownItem (click)="goToPage('/settings')">Account Settings</button>
-                  <button ngbDropdownItem (click)="eraseCookiesAndLogout()">Logout</button>
-                </div>
-              </div>
-          </ng-template>
+              <ng-template #userNotRegistered>
+                <button type="button" class="btn btn-success" (click)="goToPage('register')">Register</button>
+              </ng-template>
+              <ng-template #userRegistered>
+                  <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>My Account</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <button ngbDropdownItem (click)="goToPage('/my-chats')">My chats</button>
+                      <button ngbDropdownItem (click)="goToPage('/settings')">Account Settings</button>
+                      <button ngbDropdownItem (click)="eraseCookiesAndLogout()">Logout</button>
+                    </div>
+                  </div>
+              </ng-template>
       </div>
-      </ul>
     </div>
-  </div>
 </nav>

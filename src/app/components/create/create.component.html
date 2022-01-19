@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="hasAccount">
     <hr>
     <div class="container">
       <div class="alert alert-danger" role="alert" *ngIf="!isVerified">
@@ -8,10 +8,10 @@
         You are verified. You can create chats.
       </div>
         <h1>Create a new chat!</h1>
-        <app-maps [closeChats]="[modelChat]"></app-maps>
+        <app-maps [isClickableMarker]="false" [closeChats]="[]" [radiusOfYouChat]="radius"></app-maps>
         <p style="padding-top: 35px;">The chat will be created for this location</p>
         <form #heroForm="ngForm">
-          <div class="form-group">
+          <div class="form-group"> 
             <label for="name">Chat Name</label>
             <input type="text" class="form-control" id="chatName"
                    required
@@ -24,13 +24,16 @@
                    [(ngModel)]="modelChat.description" name="description">
           </div>
           <div>Please select the radius in which users will be able to see and join your chat:</div>  
-          <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
+          <mat-slider min="{{minRadius}}" max="{{maxRadius}}" step="{{radiusSliderSteps}}" value="1000" #matslider (input)="radiusSliderFunc($event)"></mat-slider>
           <div style="margin-bottom: 10px;">
             {{ radius }} meters radius.
           </div>
           <button type="submit" class="btn btn-success" (click)="onCreateChatSubmit()">Create!</button>
         </form>
     </div>
-  
   </div>
-  
+  <div *ngIf="!hasAccount">
+    <div class="alert alert-danger" role="alert">
+      You don't have an account. You will be redirected shortly
+    </div>
+  </div>

@@ -82,4 +82,8 @@ export class BackendService {
   verifyVerCode(email: string, code: number): Promise<any>{
     return this.http.get(this.backendUrl+'/check-if-correct-code?email='+email+'&code='+code).toPromise();
   }
+
+  getChatsByUser(userId: number): Promise<any>{
+    return this.http.get(`${this.backendUrl}/my-chats/${userId}`).toPromise();
+  }
 }

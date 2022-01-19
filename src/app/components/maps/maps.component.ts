@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { Router } from '@angular/router';
@@ -32,15 +32,14 @@ export class MapsComponent implements OnInit {
       height: 40
     }
 }
-  
-
+  @Input() radiusOfYouChat = 0;
   @Input() closeChats: ChatClass[] = [];
   @Input() isClickableMarker: boolean = true;
 
   markers: marker[] = []
  
   constructor(
-    private mapsAPILoader: MapsAPILoader,
+    private mapsAPILoader: MapsAPILoader,  
     private router: Router
   ) {
 
@@ -51,7 +50,8 @@ export class MapsComponent implements OnInit {
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
     });
-  }
+  } 
+  
   onMapReady(map?: google.maps.Map ){
     if(map)
       map.setOptions({
@@ -61,13 +61,11 @@ export class MapsComponent implements OnInit {
  
   // Get Current Location Coordinates
   private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-      });
-    }
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      this.zoom = 15;
+    });
   }
 
   goToPage(pageName: string, additional: any){

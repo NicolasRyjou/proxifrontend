@@ -25,27 +25,30 @@ export class CreateChatComponent implements OnInit {
   modelChat = new ChatClass(1, this.userId, "", null, 0.5, false);
 
   imageError: string;
-  isImageSaved: boolean;
+  isImageSaved: boolean;  
   cardImageBase64: string;
+  hasAccount: boolean = false;
 
   radius = 1000;
 
   maxRadius = 50000;
-  minRadius = 100;
+  minRadius = 10;
   radiusSliderSteps = 25;
   isVerified = false;
   
   ngOnInit() {
     this.backend.getVar('chatNumber')
-    if(typeof(Number(this.localstorageservice.getLocalStorageUserId())) === 'number'){
+    if(Number(this.localstorageservice.getLocalStorageUserId()) > 0){
       this.userId = Number(this.localstorageservice.getLocalStorageUserId());
+      this.hasAccount = true;
       this.backend.getIsVerified(this.userId).then((isVerifiedRespFromServer: any) => {
         this.isVerified = isVerifiedRespFromServer.isValid;
         this.cdRef.detectChanges();
       })
     } else {
+      this.cdRef.detectChanges();
+      setTimeout(()=>{this.goToPage('register')}, 2000);
       console.log("No user id detected. Please log in.")
-      this.goToPage('login')
     }
     navigator.geolocation.getCurrentPosition(position => {
       this.modelChat.coordinates = {
@@ -72,11 +75,11 @@ export class CreateChatComponent implements OnInit {
 
   radiusSliderFunc(event: any){
     this.radius = event.value;
+    this.cdRef.detectChanges();
   }
 
   goToPage(pageName:string){
-    console.log("Redirecting to page: " + GlobalVariable.BASE_URL + pageName);
-    this.router.navigate([`${pageName}`]);
+    this.router.navigate([`/${pageName}`]);
   }
 
   goToPageRetry(){
