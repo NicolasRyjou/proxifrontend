@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { TitleService } from 'src/app/services/title-service/title.service';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 
 @Component({
@@ -20,25 +21,27 @@ export class MychatsComponent implements OnInit {
     private localstorage: LocalstorageService,
     private backend: BackendService,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private title: TitleService
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle('My chats')
     if(this.userId==0){
       this.hasAccountLoggedIn = false;
       this.cdRef.detectChanges();
       setTimeout(()=>{this.goToPage('register', null)}, 2000);
     }
-    this.backend.getChatsByUser(this.userId).then((dataForChats: any) => {
+    this.backend.getChatsByUser(this.userId).then((dataForChats: Array<any>) => {
       this.hasAccountLoggedIn = true;
-      if(dataForChats.lengh == null){
+      if(dataForChats[0] == null){
         this.hasNoChats = true;
-        for(let i=0; i<dataForChats.lenght; i++){
+      } else {
+        this.hasNoChats = false;
+        for(let i=0; i<dataForChats.length; i++){
           let tempChat = new ChatClass(dataForChats[i].chat_id, dataForChats[i].creator_id, dataForChats[i].name, {"lat":dataForChats[i].loc_latitude, "lng":dataForChats[i].loc_longitude}, dataForChats[i].radius, true, dataForChats[i].description, dataForChats[i].imgb64);
           this.chatsData.push(tempChat);
         }
-      } else {
-        this.hasNoChats = false;
       }
       this.cdRef.detectChanges();
     });
@@ -49,7 +52,7 @@ export class MychatsComponent implements OnInit {
   }
 
   goToSettings(chatId: number){
-    this.router.navigate([`chat/${chatId}/settings`])
+    this.router.navigateByUrl(`chat/${chatId}/settings`);
   }
 
   goToCreate(){

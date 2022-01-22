@@ -9,6 +9,8 @@ import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { LocationService } from 'src/app/services/location-service/location.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TitleService } from 'src/app/services/title-service/title.service';
+import { UserClass } from 'src/app/structures/user-d-struc';
 
 
 @Component({
@@ -20,6 +22,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class HomeComponent implements OnInit{
     newUrl;
     dataChats: ChatClass[] = [];
+    userData: UserClass;
     coords: any;
     radius = 0.5; //km
     userId = Number(this.localstorage.getLocalStorageUserId());
@@ -34,12 +37,21 @@ export class HomeComponent implements OnInit{
         private backend: BackendService,
         public localstorage: LocalstorageService,
         private locationservice: LocationService,
-        private imageSanitizer: DomSanitizer
+        private imageSanitizer: DomSanitizer,
+        private title:TitleService
     ) { }
 
     ngOnInit(){
+        this.title.setTitle('Home')
         this.updateNearMe();
+        this.backend.getUserData(this.userId).then((data: any) => {
+            this.userData = new UserClass(data.user_id, data.f_name, data.s_name, data.email, data.birthday, data.created_on, data.description, data.prof_pic, data.prof_pic_filename);
+        });
     }
+
+    public getColorForMyChat(): string {
+        return 'rgb(200, 55, 100)';
+      }      
 
     updateNearMe(){
         this.locationservice.getPosition().then(pos => {
@@ -82,4 +94,10 @@ export class HomeComponent implements OnInit{
         console.log("Redirecting to page: "+GlobalVariable.BASE_URL+pageName+'/'+name)
         this.router.navigate([`${pageName}/`, name]);
     }
+    
+    goToSettings(chatId: number){
+        this.router.navigateByUrl(`chat/${chatId}/settings`);
+    }
+
 }
+

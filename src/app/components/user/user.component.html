@@ -1,5 +1,5 @@
 <div *ngIf="hasAccount" style="margin-top: 25px;">
-  <h1 style="margin-bottom: 35px;">Account settings for {{user.email}}</h1>
+  <h1 style="margin-bottom: 35px;">Account settings for {{user.email}} | User ID: {{user.userId}}</h1>
 
 <div *ngIf="hasSendRequest">
     <div class="alert alert-danger" role="alert" *ngIf="!isSuccess">
@@ -34,14 +34,26 @@
     <div class="column">
       <h1 style="margin-right: 5%; margin-left: 3%;">Confirm your email</h1>
       <p style="margin-right: 5%; margin-left: 3%;">An email will be send to your email address to confirm your identity.</p>
-      <button type="button" class="btn btn-primary" (click)="confirmUser();" style="margin-right: 5%; margin-left: 3%;">Send new email</button>
+      <div style="margin-right: 5%; margin-left: 3%; vertical-align:middle;">
+        <div style="float: right; display: inline; margin-right: 35px; margin-bottom: 5px;">
+          <span class="material-icons" *ngIf="IsEmailVerified">
+            check_circle
+          </span>
+          <span class="material-icons" *ngIf="!IsEmailVerified">
+            highlight_off
+          </span>
+        </div>
+        <p>Your email confirmation:</p>
+        
+      </div>
+      <button type="button" class="btn btn-primary" (click)="confirmUser();" style="margin-right: 5%; margin-left: 3%; margin-top: 1%;">Send new email</button>
       <div *ngIf="hasErrorHappened">
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert" style="margin-top: 10px; margin-right: 5%; margin-left: 3%;">
           Could not resolve. Please contact support.
         </div>
       </div>
-      <div *ngIf="hasSendEmail">
-        <div class="alert alert-danger" role="alert">
+      <div *ngIf="hasSendEmail"  style="margin-top: 10px;">
+        <div class="alert alert-danger" role="alert" style="margin-top: 10px;">
           Could not resend confirmation email. Please contact support.
         </div>
       </div>
@@ -50,6 +62,7 @@
     <div class="column">
       <h1>Delete your account:</h1>
       <p style="margin-bottom: 30px;">This action is irrevirsible</p>
+      <p>Deleting your account means that you will have to recreate a new one to continue.</p><p>The ownership of your chats will be translated to admins.</p>
       <button type="button" class="btn btn-danger" (click)="deleteAccount();">Delete your account</button>
       <div *ngIf="hasTriedDeleting">
         <div class="alert alert-success" role="alert" *ngIf="hasDeletedAccount">

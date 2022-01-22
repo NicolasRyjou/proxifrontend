@@ -51,3 +51,7 @@ main-container{
   border-radius: 20px 20px 20px 20px; 
   background-color: #92a8d1;
 }
+
+isMyChat{
+  background-color: rgb(56, 150, 80);
+}

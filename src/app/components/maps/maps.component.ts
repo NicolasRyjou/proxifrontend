@@ -3,6 +3,7 @@ import { MapsAPILoader } from '@agm/core';
 import { ChatClass } from 'src/app/structures/chat-d-struc';
 import { Router } from '@angular/router';
 import { IconOptions } from '@angular/material/icon';
+import { TitleService } from 'src/app/services/title-service/title.service';
 
 interface marker {
 	lat: number;
@@ -40,7 +41,7 @@ export class MapsComponent implements OnInit {
  
   constructor(
     private mapsAPILoader: MapsAPILoader,  
-    private router: Router
+    private router: Router,
   ) {
 
   }
@@ -61,11 +62,13 @@ export class MapsComponent implements OnInit {
  
   // Get Current Location Coordinates
   private setCurrentLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      this.zoom = 15;
-    });
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        this.zoom = 15;
+      });
+    }
   }
 
   goToPage(pageName: string, additional: any){

@@ -25,6 +25,7 @@ export class UserComponent implements OnInit {
   hasDeletedAccount: boolean = false;
   hasTriedDeleting: boolean = false;
   hasSendEmail: boolean = false;
+  IsEmailVerified: boolean = false;
 
   public user = new UserClass();
   public registerForm:FormGroup;
@@ -70,6 +71,10 @@ export class UserComponent implements OnInit {
       this.bio.setValue(this.user.bio);
       this.birthday.setValue(this.user.birthday);
     });
+    this.backend.getIsVerified(Number(this.userId)).then((data: any) => {
+      this.IsEmailVerified = data.isValid;
+      this.cdRef.detectChanges();
+    });
   }
 
   updateUser(){
@@ -104,7 +109,7 @@ export class UserComponent implements OnInit {
       this.backend.deleteUser(Number(this.user.userId)).then((data:any)=>{
         if(data.success){
           this.localstorage.resetLocalStorage();
-          this.router.navigate([`register`])
+          this.router.navigateByUrl(`register`);
         } else {
           this.hasDeletedAccount = false
         }
@@ -114,8 +119,9 @@ export class UserComponent implements OnInit {
 
   confirmUser(){
     this.backend.newEmailVerification(this.user.email).then((data: any) => {
+      console.log(data)
       if(data.success){
-        this.router.navigate([`verify-email?email=${this.user.email}`]);
+        this.router.navigateByUrl(`verify-email?email=${this.user.email}`);
       } else {
         this.hasErrorHappened = true;
         this.cdRef.detectChanges();

@@ -8,11 +8,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { MessageClass } from 'src/app/structures/message-d-structure';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { TitleService } from 'src/app/services/title-service/title.service';
 
 @Component({ templateUrl: 'chat.component.html' })
 export class ChatComponent implements OnInit{
     userData = new UserClass(1, "", "", "");
     chatData = new ChatClass(1, 1, "", null, 0.5, false, "", "");
+    creatorData = new UserClass;
     toAgmData = [this.chatData]
     messages$ : Observable<MessageClass[]>;
     lastRecentMessages: MessageClass[];
@@ -29,7 +31,8 @@ export class ChatComponent implements OnInit{
         private backend: BackendService,
         private localstorageservice: LocalstorageService,
         private router: Router,
-        private cdRef: ChangeDetectorRef
+        private cdRef: ChangeDetectorRef,
+        private title: TitleService
     ) {
         this.activatedRoute.paramMap.subscribe(
             params=>{
@@ -39,10 +42,10 @@ export class ChatComponent implements OnInit{
         this.activatedRoute.queryParams.subscribe(params => {
             let temp = params['origin']
             if(temp == 'cs'){
-              this.showhasTriedToAccessNoCreator
+              this.showhasTriedToAccessNoCreator 
               this.hasTriedToAccessNoCreator = true
               this.cdRef.detectChanges();
-              setTimeout(()=>{this.showhasTriedToAccessNoCreator = false; this.cdRef.detectChanges();})
+              setTimeout(()=>{this.showhasTriedToAccessNoCreator = false; this.cdRef.detectChanges();}, 2000)
             }
         });
     }
@@ -54,8 +57,15 @@ export class ChatComponent implements OnInit{
         }
         let tempData = JSON.stringify({"user_id": this.userData.userId, "chat_id": this.chatData.chatId});
         this.backend.getChatData(this.chatData.chatId).then(data => {
-            this.bindDataFromRequest(data)
-        })
+            this.bindDataFromRequest(data);
+            this.title.setTitle(`${this.chatData.chatName}`);
+            if(this.userData.userId = this.chatData.creatorId){
+                this.isIcreated = true;
+            }
+        });
+        this.backend.getUserData(this.chatData.creatorId).then((data: any) => {
+            this.creatorData = new UserClass(data.user_id, data.f_name, data.s_name, data.email, data.birthday, data.created_on, data.description, data.prof_pic, data.prof_pic_filename);
+        });
         this.socketService.setupSocketConnection(tempData)
         this.messages$ = this.socketService.messages$;
         this.backend.getMessagesFromBefore(this.chatData.chatId, 50).then(data => {

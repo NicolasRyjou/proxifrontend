@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { GlobalVariable } from 'src/global';
 import { delay, retry } from 'rxjs';
 import { coerceStringArray } from '@angular/cdk/coercion';
+import { TitleService } from 'src/app/services/title-service/title.service';
 
 @Component({
   selector: 'app-create-chat',
@@ -18,7 +19,8 @@ export class CreateChatComponent implements OnInit {
     public backend: BackendService,
     public localstorageservice: LocalstorageService,
     private router: Router,
-    private cdRef:ChangeDetectorRef
+    private cdRef:ChangeDetectorRef,
+    private title: TitleService
   ) { }
 
   userId: number = 1;
@@ -37,6 +39,7 @@ export class CreateChatComponent implements OnInit {
   isVerified = false;
   
   ngOnInit() {
+    this.title.setTitle('Create')
     this.backend.getVar('chatNumber')
     if(Number(this.localstorageservice.getLocalStorageUserId()) > 0){
       this.userId = Number(this.localstorageservice.getLocalStorageUserId());
@@ -64,6 +67,7 @@ export class CreateChatComponent implements OnInit {
      return
     }
     this.modelChat.radius = this.radius;
+    this.modelChat.creatorId = Number(this.localstorageservice.getLocalStorageUserId());
     console.log(this.modelChat)
     this.backend.post('/chats/12345', this.modelChat);
     delay(1000);
@@ -79,7 +83,7 @@ export class CreateChatComponent implements OnInit {
   }
 
   goToPage(pageName:string){
-    this.router.navigate([`/${pageName}`]);
+    this.router.navigate([`${pageName}`]);
   }
 
   goToPageRetry(){

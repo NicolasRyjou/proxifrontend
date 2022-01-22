@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { delay } from 'rxjs';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
+import { TitleService } from 'src/app/services/title-service/title.service';
 import { UserClass } from 'src/app/structures/user-d-struc';
 import { GlobalVariable } from 'src/global';
 
@@ -18,7 +19,8 @@ export class VerifyCodeComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder:FormBuilder,
-    private cdRef:ChangeDetectorRef
+    private cdRef:ChangeDetectorRef,
+    private title: TitleService
   ) {
     this.verificationCodeCode = new FormControl("123456", [Validators.required]);
     this.verificationCode=formBuilder.group({
@@ -39,6 +41,7 @@ export class VerifyCodeComponent implements OnInit {
   userData: UserClass = new UserClass(1, '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--', '--Loading--');
 
   ngOnInit(): void {
+    this.title.setTitle('Verify')
     this.backend.getUserDataThroughEmail(String(this.userData.email)).then((data:any) => {
       this.userData = new UserClass(data.user_id, data.f_name, data.s_name, data.email, data.birthday, data.created_on, data.description, data.prof_pic, data.prof_pic_filename);
     });

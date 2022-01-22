@@ -23,7 +23,6 @@ import { GlobalVariable } from 'src/global';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BackendService } from './services/backend-service/backend.service';
 import { UserComponent } from './components/user/user.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { VerifyCodeComponent } from './components/verify-code';
 import { CreateChatComponent } from './components/create';
 import { ChatSettingsComponent } from './components/chat-settings/chat-settings.component';
@@ -96,7 +95,6 @@ const imports = [
     MapsComponent,
     SidebarComponent,
     UserComponent,
-    SettingsComponent,
     VerifyCodeComponent,
     CreateChatComponent,
     ChatSettingsComponent,

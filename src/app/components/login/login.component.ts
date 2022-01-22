@@ -6,6 +6,7 @@ import { GoogleLoginProvider } from "angularx-social-login";
 import { delay } from 'rxjs';
 import { BackendService } from 'src/app/services/backend-service/backend.service';
 import { LocalstorageService } from 'src/app/services/localstorage-service/localstorage.service';
+import { TitleService } from 'src/app/services/title-service/title.service';
 import { UserClass } from 'src/app/structures/user-d-struc';
 import { GlobalVariable } from 'src/global';
 
@@ -24,11 +25,12 @@ export class LoginComponent implements OnInit {
     private authService: SocialAuthService,
     public backend: BackendService,
     public localstorage: LocalstorageService,
-    public router: Router
+    public router: Router,
+    private title: TitleService
   ) {  }
 
   ngOnInit() {
-    this.user.bio = "No Bio Provided"
+    this.title.setTitle('Login')
     if(typeof(this.localstorage.getLocalStorageUserId()) === 'number'){
       this.goToPage('');
       return

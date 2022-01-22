@@ -54,7 +54,7 @@ export class SocketioService{
 
   private playNewMessageSound(){
     let audio = new Audio();
-    audio.src = "../../../assets/soundeffects/";
+    audio.src = "../../../assets/soundeffects/soundNewMessage.wav";
     audio.load();
     audio.play();
   }

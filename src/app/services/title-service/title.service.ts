@@ -18,6 +18,6 @@ export class TitleService {
   }
 
   setTitle(newTitle: string) {
-    this._doc.title = newTitle || '';
+    this._doc.title = newTitle+' - Proxi' || '';
   }
 }

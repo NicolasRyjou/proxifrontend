@@ -9,7 +9,7 @@
     <app-maps [closeChats]="chatsData" [isClickableMarker]="true"></app-maps>
     <h2 style="margin: 20px;">Your chat list</h2>
     <div *ngIf="!hasNoChats">
-        <li *ngFor="let chat of chatsData">
+        <li *ngFor="let chat of chatsData" style="list-style-type:none;">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -22,11 +22,12 @@
               <p>{{ chat.description }}</p>
               <app-maps [closeChats]="[chat]" [isClickableMarker]="true"></app-maps>
               <mat-action-row>
+                <button mat-button (click)="goToSettings(chat.chatId)">Settings</button>
                 <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
-                <button mat-button (click)="goToSettings(chat.chatId)">Chat</button>
               </mat-action-row>
             </mat-expansion-panel>
         </li>
+        <button mat-raised-button color="primary" style="background-color: rgb(52, 151, 57); margin-top: 15px;" (click)="goToCreate()">Create more</button>
     </div>  
     <div *ngIf="hasNoChats">
         <h4>There aren't any chats to your name. Don't worry, we can fix this. go here <button mat-raised-button color="primary" style="background-color: rgb(52, 151, 57);" (click)="goToCreate()">Create your own</button></h4>

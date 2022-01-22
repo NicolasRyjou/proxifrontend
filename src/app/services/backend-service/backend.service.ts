@@ -72,7 +72,7 @@ export class BackendService {
   }
 
   deleteUser(userId: number): Promise<any>{
-    return this.http.delete(this.backendUrl+"/users/"+userId).toPromise();
+    return this.http.delete(this.backendUrl+"/user/"+userId).toPromise();
   }
 
   deleteChat(chatId: number): Promise<any>{

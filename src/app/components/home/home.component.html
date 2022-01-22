@@ -3,22 +3,21 @@
   <div class="maps-container">
     <app-maps [closeChats]='dataChats'></app-maps>
   </div>
-  <button type="button" class="btn btn-info" style="margin-left: 20px; margin-top: 5px;" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255); margin: 0;">Update</p></button>
-  <li *ngFor="let chat of dataChats">
+  <button type="button" class="btn btn-info" style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px;" (click)="updateNearMe();"><p style="color: rgb(255, 255, 255); margin: 0;">Update</p></button>
+  <div style="margin-bottom: 10px;" *ngIf="hasChatsNear();">Your chats are marked in green</div>
+  <li *ngFor="let chat of dataChats; let i = index">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <div *ngIf="chat.chatId == userId">
-            You created this chat.
-          </div>
-          {{ chat.chatName }}
+          {{ chat.chatName }}<p *ngIf="chat.isCreatedBySaved" style="background-color: rgb(20, 112, 43); border-radius: 5px; padding: 3px; margin-top: 0px; padding-top: 0px; padding-bottom: 0px; margin-left: 3px; color: white;">You created this chat</p>
         </mat-panel-title>
         <mat-panel-description>
           {{ chat.description }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>{{ chat.description }}</p>
+      <p>{{ chat.description }}
       <mat-action-row>
+        <button mat-button (click)="goToSettings(chat.chatId)" *ngIf="chat.creatorId == userData.userId">Settings</button>
         <button mat-button (click)="goToPage('chat', chat.chatId)">Chat</button>
       </mat-action-row>
     </mat-expansion-panel>

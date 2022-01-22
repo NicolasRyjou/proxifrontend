@@ -1,36 +1,38 @@
-<div *ngIf="showhasTriedToAccessNoCreator"><div class="alert alert-danger" role="alert" *ngIf="hasTriedToAccessNoCreator">
-   You cannot edit this chat as you are no the owner of it</div>
+<div *ngIf="showhasTriedToAccessNoCreator">
+    <div class="alert alert-danger" role="alert" *ngIf="hasTriedToAccessNoCreator">
+        You cannot edit this chat as you are no the owner of it
+    </div>
 </div>
 <h1 class="chat-title">{{ chatData.chatName }}</h1>
-<h6>{{chatData.description}}</h6>
+<h4>{{chatData.description}} | Created by {{creatorData.firstName}} {{creatorData.lastName}} (user id: {{creatorData.userId}})</h4>
 <br>
 <div *ngIf="isIcreated">
-    <button type="button" style="width: 100%; padding: 3%; margin-top: 5%;" class="btn btn-primary" type="submit" (click)="goToEdit();">Edit this chat</button>
+    <button type="button" style="width: 30%; padding: 0%; margin-top: 1%;" class="btn btn-primary" type="submit" (click)="goToEdit();">Edit this chat</button>
 </div>
 <br>
 <app-maps [closeChats]="toAgmData" [isClickableMarker]="false"></app-maps>
 <h1 style="margin: 20px">Chat now:</h1>
-<div style="padding: 10px; border-color: black; overflow-y:scroll; height: 800px;">
+<div style="padding: 10px; border-color: black; overflow-y:scroll; height: 800px; display: flex; flex-direction: column-reverse;">
 <h6 *ngFor="let message of listLastRecentMessages; let i=index">
-    <mat-card *ngIf="message.senderId == userData.userId" style="background-color: aquamarine;">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }} <a (click)="deleteMessage(message.messageId);"><mat-icon>delete</mat-icon></a></mat-card>
-    <mat-card *ngIf="message.senderId != userData.userId" style="background-color: aliceblue;">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }} </mat-card>
-</h6>
+    <mat-card *ngIf="message.senderId == userData.userId" style="background-color: rgb(37, 179, 84);">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }} {{message.senderId}} + {{userData.userId}} <a (click)="deleteMessage(message.messageId);"><mat-icon>delete</mat-icon></a></mat-card>
+    <mat-card *ngIf="message.senderId != userData.userId" style="background-color: aliceblue;">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }} {{message.senderId}} + {{userData.userId}}  </mat-card>
+</h6> 
 <h6 *ngFor="let message of (messages$ | async); let i=index">
-    <mat-card *ngIf="message.senderId == userData.userId" style="background-color: aquamarine;">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }} <a (click)="deleteMessage(message.messageId);"><mat-icon>delete</mat-icon></a></mat-card>
-    <mat-card *ngIf="message.senderId != userData.userId" style="background-color: aliceblue;">{{message.sendOn}}:<div style="margin-left: 10px;"></div><h3>{{message.content }}</h3> </mat-card>
+    <mat-card *ngIf="message.senderId == userData.userId" style="background-color: rgb(37, 179, 84);">{{message.sendOn}}:<div style="margin-left: 10px;"></div>{{message.content }}  {{message.senderId}} + {{userData.userId}}<a (click)="deleteMessage(message.messageId);"><mat-icon>delete</mat-icon></a></mat-card>
+    <mat-card *ngIf="message.senderId != userData.userId" style="background-color: aliceblue;">{{message.sendOn}}:<div style="margin-left: 10px;"></div><h3>{{message.content }}  {{message.senderId}} + {{userData.userId}}</h3> </mat-card>
 </h6>
 </div>
 <input class="input" #box (keyup.enter)="newMessage(box.value, 'dasdsadasdsadas');"  class="form-control" [(ngModel)]="message" style="z-index: 999; width: 100%;     outline: none;
 " placeholder="Your message" #name required>
 <span class="material-icons-outlined" *ngIf="userData.userId == chatData.creatorId" (click)="goToPage('/create');" style="position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 5rem;
+    right: 15rem;
     width: 1em;
     height: 1.5rem;"><mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
 </span>
 <span class="material-icons-outlined" (click)="goToPage('/create');" style="position: fixed;
     bottom: 1rem;
     right: 1rem;
-    width: 1.5em;
+    width: 110em;
     height: 1.5em;"><mat-icon aria-hidden="false" aria-label="Example home icon">add_circle_outline</mat-icon>
 </span>
