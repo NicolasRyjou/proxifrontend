@@ -1,11 +1,10 @@
 export const GlobalVariable = Object.freeze({
-    BASE_API_URL: 'http://192.168.18.14:5000/api',
+    BASE_API_URL: 'https://nicolasryjou.pythonanywhere.com/api',
     client_id: '633249758845-dv2ud54t66d3ru97un575dfsv93auelp.apps.googleusercontent.com',
-    BASE_URL: 'http://192.168.18.14:4200/',
+    BASE_URL: 'https://nicolasryjou.pythonanywhere.com',
 });
 
 export const environment = {  
 	production: false,  
-	SOCKET_ENDPOINT: 'http://192.168.18.14:5000'
+	SOCKET_ENDPOINT: 'https://nicolasryjou.pythonanywhere.com'
 };
-// to import use: import { GlobalVariable } from 'src/global';
